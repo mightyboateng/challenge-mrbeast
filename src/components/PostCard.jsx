@@ -17,7 +17,7 @@ import UserImg from "../image/icons/iconamoon_profile.svg";
 import VoteFunctionContainer from "./VoteFunctionContainer";
 import {  Link} from "react-router-dom";
 
-const PostCard = () => {
+const PostCard = ({ challengeId, title, description,challengeType, creator, publishedAt }) => {
   const [voteUp, setVoteUp] = useState(false);
   const [voteDown, setVoteDown] = useState(false);
 
@@ -30,7 +30,6 @@ const PostCard = () => {
 
   return (
     <div className="post-card">
-    
       <VoteFunctionContainer
         flexDirection="flex-column"
         displayClass="hide-lg-vote"
@@ -40,29 +39,21 @@ const PostCard = () => {
           <img src={UserImg} alt="user-img" />
           <div className="user-detail">
             <p>
-              mb/charity <span>Posted by</span>
-              <Link to="/profile/nana-kwame" className="owner-name">
-                Michael Nana Adams
+              {challengeType} <span>Posted by</span>
+              <Link to={`/profile/${creator}`} className="owner-name">
+                {creator}
               </Link>
             </p>
-            <span>1 day ago</span>
+            <span>{publishedAt}</span>
           </div>
         </div>
-        <Link to="/challenges/1" className="text-decoration-none">
+        <Link
+          to={`/challenges/${challengeId}`}
+          className="text-decoration-none"
+        >
           <div className="post-body">
-            <h3>Master the Art of Prompting with Mighty Mike</h3>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
+            <h3>{title}</h3>
+            <p>{description}</p>
           </div>
         </Link>
         <div className="post-footer">

@@ -11,9 +11,11 @@ import { useSelector } from "react-redux";
 // import { useRouter } from "next/navigation";
 // import { UserAuth } from "@/app/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase-config";
 
 const SideProfile = () => {
-  // const userDetail = useSelector((state) => state.user.userDetail);
+  const userDetail = useSelector((state) => state.user.userDetail);
   const [showUserOption, setUserOption] = useState("");
   const navigate = useNavigate();
   // const { theme, setTheme } = useTheme();
@@ -41,7 +43,8 @@ const SideProfile = () => {
 
   const handleLogOut = async () => {
     try {
-      // logOut();
+      signOut(auth)
+      window.location.reload()
       // route.refresh()
     } catch (error) {
       alert(`Error from logging out ${error}`);
@@ -53,18 +56,18 @@ const SideProfile = () => {
   return (
     <div className="sidebar-profile">
       <div className={`sidebar-options ${showUserOption}`}>
-        {/* {!userDetail ? ( */}
+        {!userDetail ? (
         <div
           className="option-item cursor-pointer"
           onClick={() => navigate("/login")}
         >
           <Login /> Login
         </div>
-        {/* ) : (
+        ) : (
           <div className="option-item cursor-pointer" onClick={handleLogOut}>
             <Logout /> Logout
           </div>
-        )} */}
+        )}
 
         <div className="option-item cursor-pointer">
           <DarkMode />
@@ -76,7 +79,7 @@ const SideProfile = () => {
         onClick={userOptionAction}
       >
         <Person />
-        <span>Michael Adams</span>
+        <span>{userDetail !==null ? userDetail.username : null}</span>
       </div>
     </div>
   );

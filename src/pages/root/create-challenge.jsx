@@ -7,7 +7,7 @@ import RootLayout from '../../components/RootLayout';
 import { Public } from "@mui/icons-material";
 // import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 // import { useRouter } from "next/navigation";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import SideProfile from '../../components/SideProfile';
@@ -19,7 +19,7 @@ const CreateChallengePage = () => {
     const [description, setDescription] = useState("");
     const [mbType, setMbType] = useState("");
     const userDetail = useSelector((state) => state.user.userDetail);
-    // const route = u();
+    const navigate = useNavigate()
 
   return (
     <RootLayout>
@@ -58,13 +58,13 @@ const CreateChallengePage = () => {
                 </p>
                 <hr className="hr" />
 
-                {/* {userDetail == null ? (
-                  <button onClick={() => route.push("/login")}>
-                    Please login to submit an account
+                {userDetail == null ? (
+                  <button onClick={() => navigate("/login")}>
+                    Please login to submit a challenge
                   </button>
-                ) : ( */}
-                  <button>Post</button>
-                {/* )} */}
+                ) : (
+                <button>Post</button>
+                )}
               </div>
             </div>
           </div>

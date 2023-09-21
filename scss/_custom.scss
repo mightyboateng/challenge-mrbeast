@@ -168,6 +168,10 @@ button {
 .bg-fill-danger {
   fill: var(--primary-red) !important;
 }
+  .MuiCircularProgress-root {
+    width: 20px !important;
+    height: 20px !important;
+  }
 
 
 //---***  Challenge, Create, Mrbeast , and Profile layout content ***---//

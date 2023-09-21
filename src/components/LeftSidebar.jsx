@@ -1,32 +1,21 @@
 import {
   Assessment,
-  CodeOff,
-  Coffee,
   Create,
   LaptopMac,
   Person,
   YouTube,
 } from "@mui/icons-material";
-// import Image from "next/image";
-import { useEffect, useState } from "react";
-
-// import { useRouter, usePathname } from "next/navigation";
-// import { useSelector } from "react-redux";
-// import SideProfile from "./SideProfile";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import IconLogo from "../image/assets/blue-icon-logo.svg";
 
 import SideProfile from "./SideProfile";
-// import { sidebarLinks } from "@/constants/index";
 
 function LeftSidebar() {
-  const { pathname } = useParams();
+  const { pathname } = useLocation();
   // const path = Pathname()
-  // const userDetails = useSelector((state) => state.user.userDetail);
 
-  // await new Promise((resolve) => setTimeout(resolve, 10000));
-
-  // console.log("Pathname", path)
+  const userDetails = useSelector((state) => state.user.userDetail);
 
   return (
     <div className="sidebar-bottom-navbar">
@@ -75,15 +64,20 @@ function LeftSidebar() {
             <span>Create</span>
           </Link>
 
-          <Link
-            to={"/profile/might_mike"}
-            className={`sidebar-item ${
-              pathname === "/profile/" ? "active-sidebar-item" : null
-            }`}
-          >
-            <Person />
-            <span>Profile</span>
-          </Link>
+          {userDetails ? (
+            <Link
+              to={`/profile/${userDetails.username}`}
+              className={`sidebar-item ${
+                pathname === `/profile/${userDetails.username}`
+                  ? "active-sidebar-item"
+                  : null
+              }`}
+            >
+              <Person />
+              <span>Profile</span>
+            </Link>
+          ) : null}
+
         </div>
       </div>
 

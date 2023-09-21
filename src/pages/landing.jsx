@@ -37,7 +37,7 @@ const LandingPage = () => {
                 <Link to="/challenges">Challenges</Link>
               </button>
               <button>
-                <Link to="/challenges">Login</Link>
+                <Link to="/login">Login</Link>
               </button>
             </div>
           </div>
