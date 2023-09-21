@@ -1,0 +1,91 @@
+.create-section {
+  .create-card {
+    background: var(--popup-background-color);
+    padding: 1rem;
+
+    .card-body {
+      form {
+        width: 100%;
+      }
+
+      select {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border: 0.1rem solid var(--primary-red);
+        background: var(--background-color);
+    border-radius: 5px;
+    color: var(--text-white);
+      }
+      .select {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        font-size: 16px;
+        color: var(--primary-red);
+        // width: $select-width;
+        // height: $select-height;
+      }
+
+      input {
+        margin-bottom: 0.5rem;
+        outline: none;
+        width: 100%;
+        background: none;
+        box-sizing: border-box;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border: 0.1rem solid var(--primary-red);
+        border-radius: 5px;
+        padding: 0.5rem;
+      }
+
+      textarea {
+        width: 100%;
+        height: 19rem;
+
+        font-size: 1rem;
+        border: none;
+        outline: none;
+        background: none;
+        box-sizing: border-box;
+        color: var(--text-input-color);
+        border: 0.1rem solid var(--primary-red);
+        border-radius: 5px;
+        resize: none;
+        padding: 0.5rem;
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        color: var(--primary-red);
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  hr {
+    border: 1px solid var(--primary-red);
+  }
+
+  button {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    border-radius: 36px;
+    padding: 0.5rem 2.5rem;
+    font-size: 1rem;
+  }
+  a {
+    
+    text-decoration: none;
+    border: 1px solid var(--primary-blue);
+    border-radius: 35px;
+    padding: 1rem;
+    color: var(--text-white);
+    /* margin: 4rem; */
+    display: block;
+    width: fit-content;
+  }
+
+}

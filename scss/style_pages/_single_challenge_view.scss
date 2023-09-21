@@ -1,0 +1,100 @@
+.challenge-view-section {
+  .view-post-card {
+    display: flex;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+
+    a {
+      color: var(--text-white);
+    }
+
+    .vote-container {
+      margin-right: 1.2rem;
+
+      .MuiSvgIcon-root {
+        // color: var(--background-color);
+      }
+
+      .vote-up {
+        color: var(--primary-blue);
+      }
+      .vote-down {
+        color: var(--primary-red);
+      }
+    }
+
+    .post-nav {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.7rem;
+
+      .post-ower-img {
+        border-radius: 30px;
+        border: 1px solid var(--light-grey);
+width: 30px;
+      }
+
+      .user-detail {
+        margin-left: 0.5rem;
+        p {
+          display: -webkit-box;
+          min-width: 50px;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin: 0;
+          font-size: 0.8rem;
+
+          span {
+            margin-left: 0.2rem;
+            margin-right: 0.2rem;
+          }
+        }
+        span {
+          font-size: 0.7rem;
+          color: var(--grey);
+        }
+
+        .owner-name {
+          color: var(--grey);
+        }
+      }
+    }
+
+    .view-post-body {
+      h3 {
+        margin: 0;
+        margin-bottom: 0.3rem;
+        font-size: 1rem;
+      }
+
+      p {
+        margin: 0;
+        font-size: 1rem;
+            line-height: 30px;
+      }
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      margin-top: 0.7rem;
+
+      span {
+        font-size: 0.7rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+      .post-footer-item {
+        display: flex;
+        align-items: center;
+        margin-right: 1rem;
+        color: var(--grey);
+
+        font-size: 0.2rem;
+      }
+    }
+  }
+}

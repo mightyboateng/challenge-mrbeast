@@ -1,0 +1,74 @@
+.sidebar-profile {
+  position: relative;
+}
+
+.hide-sm {
+  display: none;
+}
+.profile-show-sm {
+  margin-right: 1rem;
+}
+.sidebar-profile-img {
+  display: flex;
+  border: 1px solid var(--light-grey);
+  padding: 0.3rem;
+  border-radius: 30px;
+  width: fit-content;
+  align-items: center;
+
+  span {
+    display: none;
+  }
+}
+
+.sidebar-options {
+  position: absolute;
+  background: var(--popup-background-color);
+  width: 156px;
+  border: 0.1rem solid var(--light-grey);
+  border-radius: 5px;
+  left: 6px;
+  top: 44px;
+  display: none;
+  //     padding: 1rem;
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+
+    .MuiSvgIcon-root {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@media (min-width: 501px) {
+  .profile-show-sm {
+    display: none;
+  }
+
+  .sidebar-options {
+      left: -1px;
+    top: -121px;
+    z-index: 3;
+}
+}
+
+@media (min-width: 1281px) {
+  .sidebar-profile-img {
+    span {
+      display: inline;
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  }
+}
+
+.display-options {
+       display: block;
+}

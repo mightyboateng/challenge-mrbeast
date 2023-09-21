@@ -1,0 +1,37 @@
+.feed-section {
+  .user-feed-container {
+    margin: 1rem 0;
+    //     height: 150px;
+    //     background: red;
+    padding: 1rem;
+
+    border-bottom: 0.1rem solid var(--light-grey);
+
+    .user-input {
+      display: flex;
+      align-items: start;
+    }
+
+    img {
+      width: 50px;
+      border-radius: 30px;
+      border: 0.1rem solid var(--light-grey);
+    }
+
+    .input-field {
+      //       background: green;
+      height: 100px;
+      width: 100%;
+      border-radius: 5px;
+      border: 0.1rem solid var(--light-grey);
+    }
+  }
+}
+
+.loading-component {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

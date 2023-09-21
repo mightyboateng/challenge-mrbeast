@@ -1,0 +1,228 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap");
+
+:root {
+  --primary-blue: #00acd2;
+  --primary-red: #e04476;
+  --sleep-blue: #19a7ce4a;
+  --background-white-2: #f8f9fa;
+  --grey: grey;
+  --light-text-gray:#2c2c2c;
+  --light-grey: rgb(233, 233, 233);
+  --grey-active-sidebar-item: rgba(230, 230, 230, 0.548);
+  --background-color: rgb(255, 255, 255);
+  --popup-background-color: rgb(255, 255, 255);
+  --icon-color-white: rgb(0, 0, 0);
+  --text-white: rgb(0, 0, 0);
+  --text-input-color: rgb(0, 0, 0);
+  --popup-layer-background: rgba(0, 0, 0, 0.692);
+  --popup-card: rgb(241 241 241);
+
+  --landing-primary-background: #19a7ce;
+  --landing-text-primary: #ffffff;
+  --landing-button-text: #19a7ce;
+  --login-signup-light-grey: rgb(255, 255, 255);
+  --line-background: rgb(255, 255, 255);
+}
+
+[data-theme="dark"] {
+  --primary-blue: #19a7ce;
+  --primary-red: #e04476;
+  --background-white-2: #f8f9fa;
+  --grey: grey;
+  --light-text-gray:#a7a8a9;
+  --light-grey: rgba(255, 255, 255, 0.247);
+  --grey-active-sidebar-item: rgba(255, 255, 255, 0.055);
+  --background-color: rgb(0, 0, 0);
+  --popup-background-color: rgb(0, 0, 0);
+  --icon-color-white: rgb(255, 255, 255);
+  --text-white: rgb(255, 255, 255);
+  --text-input-color: rgb(255, 255, 255);
+  --popup-layer-background: rgba(61, 59, 59, 0.692);
+  --popup-card: rgba(61, 59, 59, 0.692);
+
+  --landing-primary-background: #000000;
+  --landing-text-primary: #19a7ce;
+  --landing-button-text: #ffffff;
+  --login-signup-light-grey: rgb(0, 0, 0);
+  --line-background: rgb(63 63 63);
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  color: var(--text-white);
+}
+.custom-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.text-start {
+  text-align: start;
+}
+.text-center {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+.show-current-section {
+  display: inline !important;
+}
+
+.show-display-main-conversation {
+  visibility: visible !important;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.align-items-center {
+  align-items: center;
+}
+
+.custom-icon-color {
+ fill: var(--icon-color-white);
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+@media (max-width: 1440px) {
+  .custom-container {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .custom-container {
+    max-width: 991px;
+  }
+}
+
+@media (max-width: 991px) {
+  .custom-container {
+    max-width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-container {
+    max-width: 100%;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  // width: 1px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+  display: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: none;
+}
+
+
+.bg-fill-danger {
+  fill: var(--primary-red) !important;
+}
+
+
+//---***  Challenge, Create, Mrbeast , and Profile layout content ***---//
+.default-section {
+  .default-section-container {
+    display: flex;
+    flex-direction: column;
+      .default-section-nav {
+        display: flex;
+        align-items: center;
+        padding: 0.3rem;
+        border-bottom: 0.1rem solid var(--light-grey);
+
+        h3 {
+          margin: 0;
+        }
+      }
+
+      .default-section-body {
+        overflow-y: scroll;
+        height: calc(100vh - 6rem);
+      }
+    }
+  
+}
+
+@media (min-width: 391px) {
+  .default-section {
+    .default-section-container {
+        .default-section-body {
+          height: calc(100vh - 7rem);
+        }
+      }
+    }
+  }
+
+
+@media (min-width: 501px) {
+  .default-section {
+    .default-section-container {
+        .default-section-body {
+          height: calc(100vh - 3rem);
+        }
+      }
+    
+  }
+}
+
+@media (min-width: 992px) {
+  .default-section {
+   .default-section-container {
+      display: flex;
+      width: 100%;
+    }
+  }
+}
+
+// --- End of  Challenge, Create , and Profile layout content

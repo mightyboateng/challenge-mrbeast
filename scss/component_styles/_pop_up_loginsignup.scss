@@ -1,0 +1,89 @@
+.pop-up-login-signup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--popup-layer-background);
+  overflow: hidden;
+//   display: none !important;
+
+  .create-card {
+    height: 100%;
+    width: 100%;
+    background:var(--popup-background-color);
+    padding: 1rem;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      button {
+        padding: 0.5rem 2rem;
+        border-radius: 30px;
+        border: none;
+        font-size: 1rem;
+        color: white;
+        background: var(--primary-blue);
+      }
+    }
+
+    .card-body {
+      form {
+        width: 100%;
+        margin-bottom: 3rem;
+      }
+
+      input {
+         margin-bottom: .5rem;
+      outline: none;
+      width: 100%;
+      background: none;
+      box-sizing: border-box;
+      font-size: 2rem;
+      border: none;
+      }
+
+      textarea {
+        width: 100%;
+        height: 7rem;
+        font-size: 1rem;
+        border: none;
+        outline: none;
+        color: var(--text-input-color);
+        background: none;
+        resize: none;
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        color: var(--primary-blue);
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  hr {
+    border: 1px solid var(--primary-blue);
+  }
+}
+
+.show-create-section {
+  display: flex !important;
+}
+
+@media (min-width: 550px) {
+  .pop-up-login-signup  {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+
+    .create-card {
+      width: 530px;
+      height: fit-content;
+      border-radius: 5px;
+    }
+  }
+}

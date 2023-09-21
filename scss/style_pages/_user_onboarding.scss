@@ -1,0 +1,45 @@
+.user-onboarding {
+  padding: 0.5rem;
+
+  .onboarding-card {
+    margin: auto;
+    max-width: 600px;
+    padding: 1rem;
+  }
+
+  h1 {
+    margin: 0;
+    margin-bottom: 3rem;
+    font-weight: normal;
+    font-size: 1.5rem;
+  }
+  form {
+    width: 100%;
+  }
+
+  input {
+    margin-bottom: 2rem;
+    outline: none;
+    width: 100%;
+    background: none;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 0.1rem solid var(--primary-blue);
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+
+  hr {
+    border: 1px solid var(--primary-blue);
+  }
+
+  button {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 36px;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+}

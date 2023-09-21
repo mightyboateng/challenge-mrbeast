@@ -1,0 +1,144 @@
+.login-signup-section {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+.signup-section {
+  background: var(--primary-red);
+}
+.login-section {
+  background: var(--primary-blue);
+}
+
+.auth-container {
+  width: 100%;
+  height: 100%;
+  background: var(--login-signup-light-grey);
+  padding-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-y: scroll;
+
+  .close-btn {
+    margin-left: 1rem;
+
+    .MuiSvgIcon-root {
+      cursor: pointer;
+    }
+  }
+
+  .auth {
+    padding: 1rem;
+    text-align: center;
+    overflow-y: scroll;
+
+    button {
+      width: 300px;
+      padding: 0.7rem 0;
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .google-btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        margin-right: 1rem;
+      }
+    }
+
+    .line-divider {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid var(--light-grey);
+      margin: 2rem 0;
+      line-height: 0.1rem;
+
+      span {
+        padding: 0 20px;
+        background: var(--line-background);
+      }
+    }
+
+    input {
+      margin-bottom: 1.5rem;
+      border: 0.1rem solid var(--light-grey);
+      outline: none;
+      border-radius: 5px;
+      width: 300px;
+      padding: 12px 20px;
+      box-sizing: border-box;
+      font-size: 1.2rem;
+    }
+
+    .login-btn {
+      background: var(--primary-blue);
+      color: white;
+    }
+    .forgot-btn {
+      margin-top: 1rem;
+      border: 0.1rem solid var(--primary-blue);
+      background: none;
+    }
+
+    .old-user-account,
+    .new-user-account {
+      margin-top: 1rem;
+      p {
+        margin: 0;
+        font-size: 13px;
+      }
+      a {
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+    .old-user-account {
+      a {
+        color: var(--primary-red);
+      }
+    }
+    .new-user-account {
+      a {
+        color: var(--primary-blue);
+      }
+    }
+  }
+}
+
+@media (max-width: 414px) {
+  .auth-container {
+    .auth {
+      button {
+        width: 100%;
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 578px) {
+  .auth-container {
+    border-radius: 10px;
+    width: 550px;
+    // height: 70%;
+    height: fit-content;
+    padding-top: 2rem;
+
+    .auth {
+      padding: 1rem;
+      text-align: center;
+      overflow-y: scroll;
+      height: 85%;
+    }
+  }
+}

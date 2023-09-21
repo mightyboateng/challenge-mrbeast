@@ -1,0 +1,27 @@
+.vote-container {
+  margin-right: 1.2rem;
+
+  .MuiSvgIcon-root {
+    // color: var(--background-color);
+  }
+
+  .vote-up {
+    color: var(--primary-blue);
+  }
+  .vote-down {
+    color: var(--primary-red);
+  }
+}
+
+.hide-lg-vote {
+  display: none;
+}
+
+@media (min-width: 501px) {
+  .hide-sm-vote {
+    display: none;
+  }
+  .hide-lg-vote {
+    display: flex;
+  }
+}
