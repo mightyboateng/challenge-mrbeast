@@ -8,26 +8,24 @@ import { loginUser } from "../reduxConfig/slices/userSlice";
 import { getDoc } from "firebase/firestore";
 import { Helmet } from "react-helmet";
 
-const RootLayout = ({ children,title,description }) => {
+const RootLayout = ({ children, title, description }) => {
   const userDetail = useSelector((state) => state.user.userDetail);
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
 
   const [pageLoading, setPageLoading] = useState(true);
 
-    async function getUserDetailFromFirestore(userUid) {
-      const docRef = getSpecificUser(userUid);
-      const docSnap = await getDoc(docRef);
+  async function getUserDetailFromFirestore(userUid) {
+    const docRef = getSpecificUser(userUid);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        dispatch(loginUser(docSnap.data()));
-      }
+    if (docSnap.exists()) {
+      dispatch(loginUser(docSnap.data()));
     }
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-
         getUserDetailFromFirestore(auth.currentUser.uid);
 
         if (userDetail !== null) {
@@ -44,7 +42,9 @@ const RootLayout = ({ children,title,description }) => {
   ) : (
     <main>
       <Helmet>
-        <title>{title ? `${title} | ChallengeMrBeast` : "ChallengeMrBeast"}</title>
+        <title>
+          {title ? `${title} | ChallengeMrBeast` : "ChallengeMrBeast"}
+        </title>
         <meta name="description" content="Reaching out to millions" />
       </Helmet>
       <div className="custom-container home-section">

@@ -11,6 +11,7 @@ import {
   collection,
   getDoc,
   getDocs,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -76,7 +77,7 @@ const ProfilePage = () => {
     const queryChallenge = query(
       challengeRef,
       where("creatorUsername", "==", profileId),
-      orderBy("publishedAt", "desc")
+      orderBy("publishedAt", "desc"),limit(1)
     );
     // onSnapshot(queryChallenge, (doc) => {
     //   setChallenges(

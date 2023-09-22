@@ -1,4 +1,3 @@
-
 import {
   FavoriteBorder,
   Favorite,
@@ -11,13 +10,21 @@ import {
   ThumbDownOutlined,
 } from "@mui/icons-material";
 // import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserImg from "../image/icons/iconamoon_profile.svg";
 // import Link from "next/link";
 import VoteFunctionContainer from "./VoteFunctionContainer";
-import {  Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const PostCard = ({ challengeId, title, description,challengeType, creator, publishedAt }) => {
+
+const PostCard = ({
+  challengeId,
+  title,
+  description,
+  challengeType,
+  creator,
+  publishedAt,
+}) => {
   const [voteUp, setVoteUp] = useState(false);
   const [voteDown, setVoteDown] = useState(false);
 
@@ -28,11 +35,13 @@ const PostCard = ({ challengeId, title, description,challengeType, creator, publ
 
   const voteDownAction = () => {};
 
+
   return (
     <div className="post-card">
       <VoteFunctionContainer
         flexDirection="flex-column"
         displayClass="hide-lg-vote"
+        challengeId={challengeId}
       />
       <div className="">
         <div className="post-nav">
@@ -61,6 +70,7 @@ const PostCard = ({ challengeId, title, description,challengeType, creator, publ
           <VoteFunctionContainer
             flexDirection="flex-row"
             displayClass="hide-sm-vote"
+            challengeId={challengeId}
           />
           {/* <div className="post-footer-item">
             <Comment />
