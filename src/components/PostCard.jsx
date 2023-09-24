@@ -29,8 +29,6 @@ const PostCard = ({
   const [voteDown, setVoteDown] = useState(false);
 
   const voteUpAction = () => {
-    if (voteDown === true) {
-    }
   };
 
   const voteDownAction = () => {};

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RootLayout from "../../components/RootLayout";
 import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
@@ -18,34 +18,117 @@ import { db } from "../../firebase/firebase-config";
 
 const ChallengesPage = () => {
   const [challenges, setChallenges] = useState([]);
-  const [lastDoc, setLastDoc] = useState(null);
+  const [lastDoc, setLastDoc] = useState("");
+  const scrollRef = useRef();
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   const challengeRef = collection(db, "challenges");
+  //   const queryChallenge = query(
+  //     challengeRef,
+  //     orderBy("publishedAt", "desc"),
+  //     limit(2)
+  //   );
+
+  //   const queryChallengeSnap = async () => {
+  //     const queryResult = await getDocs(queryChallenge);
+
+  //     setChallenges(
+  //       queryResult.docs.map((challengeDet) => ({
+  //         id: challengeDet.id,
+  //         challengeTitle: challengeDet.data().challengeTitle,
+  //         challengeDescription: challengeDet.data().challengeDescription,
+  //         creatorUsername: challengeDet.data().creatorUsername,
+  //         challengeType: challengeDet.data().challengeType,
+  //         publishedAt: challengeDet.data().publishedAt,
+  //       }))
+  //     );
+  //   };
+  //   return () => {
+  //     queryChallengeSnap();
+  //   };
+  // }, []);
+
+  const queryChallengeSnapAction = async () => {
     const challengeRef = collection(db, "challenges");
     const queryChallenge = query(
       challengeRef,
       orderBy("publishedAt", "desc"),
+      startAfter(lastDoc || 0),
       limit(2)
     );
+    const queryResult = await getDocs(queryChallenge);
 
+    queryResult.docs.map((doc) => {
+      // console.log("Result ", doc.data())
+      setChallenges((oldValue) => [...oldValue, doc.data()]);
+    });
+
+    setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+    // console.log("last man ", );
+  };
+
+  const queryNewChallengeAction = async () => {
+
+        const challengeRef = collection(db, "challenges");
+        const queryChallenge = query(
+          challengeRef,
+          orderBy("publishedAt", "desc"),
+        );
+  };
+
+  useEffect(() => {
     const queryChallengeSnap = async () => {
+      const challengeRef = collection(db, "challenges");
+      const queryChallenge = query(
+        challengeRef,
+        orderBy("publishedAt", "desc"),
+
+        limit(2)
+      );
       const queryResult = await getDocs(queryChallenge);
 
-      setChallenges(
-        queryResult.docs.map((challengeDet) => ({
-          id: challengeDet.id,
-          challengeTitle: challengeDet.data().challengeTitle,
-          challengeDescription: challengeDet.data().challengeDescription,
-          creatorUsername: challengeDet.data().creatorUsername,
-          challengeType: challengeDet.data().challengeType,
-          publishedAt: challengeDet.data().publishedAt,
-        }))
-      );
+      queryResult.docs.map((doc) => {
+        // console.log("Result ", doc.data())
+        setChallenges((oldValue) => [...oldValue, doc.data()]);
+      });
+
+      setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+      // console.log("last man ", );
     };
     return () => {
       queryChallengeSnap();
     };
   }, []);
+
+  useEffect(() => {
+    // const challengeContainer = document.getElementById("challengesContainerId");
+    // const challengeContain = window.document.querySelector(".contents-container");
+
+    // if (challengeContain) {
+    //   challengeContain.addEventListener("scroll", () => {
+    //     console.log("Yes Yes");
+    //   });
+    // }
+    // if (challengeContainer) {
+    //   challengeContainer.addEventListener("scroll", () => {
+    //     console.log("Yes Yes");
+    //   });
+    // }
+    //   if(challengeContainer) {
+    //  const triggerHeight = challengeContainer.scrollTop;
+
+    //  console.log("trigger ", triggerHeight);
+    //   }
+
+    return () => {};
+  });
+
+  // window.document.addEventListener("scroll", () => {
+  //   console.log("Yes Yes");
+  // });
+
+  // console.log("challenges ", challenges);
 
   return (
     <RootLayout>
@@ -59,9 +142,14 @@ const ChallengesPage = () => {
           </div>
           <div className="default-section-body">
             <div className="load-btn-container">
-              <button>Show new challenges</button>
+              <button onClick={queryNewChallengeAction}>
+                Show new challenges
+              </button>
             </div>
-            <div className="contents-container">
+            <div
+              className="contents-container challenges-container"
+              id="challengesContainerId"
+            >
               {/* <div className="user-feed-container">
                 <div className='user-input'>
                   <img src={UserImage} alt="user-profile" />
@@ -93,6 +181,9 @@ const ChallengesPage = () => {
                   ))
                 : null}
             </div>
+            <button onClick={queryChallengeSnapAction}>
+              Show more challenges
+            </button>
           </div>
         </div>
       </div>
