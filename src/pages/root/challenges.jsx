@@ -14,13 +14,41 @@ import {
   startAfter,
   startAt,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config";
+import { firestoreDb } from "../../firebase/firebase-config";
 
 const ChallengesPage = () => {
   const [challenges, setChallenges] = useState([]);
+  const [challengesId, setChallengesId] = useState([]);
   const [lastDoc, setLastDoc] = useState("");
   const scrollRef = useRef();
   const [scrollPosition, setScrollPosition] = useState(0);
+
+  // useEffect(() => {
+  //   const challengeRef = collection(firestoreDb, "challenges");
+  //   const queryChallenge = query(
+  //     challengeRef,
+  //     orderBy("publishedAt", "desc"),
+  //     limit(1)
+  //   );
+
+  //   const queryChallengeSnap = async () => {
+  //     const queryResult = await getDocs(queryChallenge);
+
+  //     setChallenges(
+  //       queryResult.docs.map((challengeDet) => ({
+  //         id: challengeDet.id,
+  //         challengeTitle: challengeDet.data().challengeTitle,
+  //         challengeDescription: challengeDet.data().challengeDescription,
+  //         creatorUsername: challengeDet.data().creatorUsername,
+  //         challengeType: challengeDet.data().challengeType,
+  //         publishedAt: challengeDet.data().publishedAt,
+  //       }))
+  //     );
+  //   };
+  //   return () => {
+  //     queryChallengeSnap();
+  //   };
+  // }, []);
 
   // useEffect(() => {
   //   const challengeRef = collection(db, "challenges");
@@ -49,8 +77,34 @@ const ChallengesPage = () => {
   //   };
   // }, []);
 
+  // const queryMoreChallengeAction = async () => {
+  //   const challengeRef = collection(firestoreDb, "challenges");
+  //   const queryChallenge = query(
+  //     challengeRef,
+  //     orderBy("publishedAt", "desc"),
+  //     limit(2)
+  //   );
+  //   const queryResult = await getDocs(queryChallenge);
+
+  //   setChallenges((oldValue) => [
+  //     ...oldValue,
+  //     queryResult.docs.map((challengeDet) => ({
+  //       id: challengeDet.id,
+  //       challengeTitle: challengeDet.data().challengeTitle,
+  //       challengeDescription: challengeDet.data().challengeDescription,
+  //       creatorUsername: challengeDet.data().creatorUsername,
+  //       challengeType: challengeDet.data().challengeType,
+  //       publishedAt: challengeDet.data().publishedAt,
+  //     })),
+  //   ]);
+
+  //    setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+
+  //   // console.log("last man ", );
+  // };
+
   const queryChallengeSnapAction = async () => {
-    const challengeRef = collection(db, "challenges");
+    const challengeRef = collection(firestoreDb, "challenges");
     const queryChallenge = query(
       challengeRef,
       orderBy("publishedAt", "desc"),
@@ -61,25 +115,19 @@ const ChallengesPage = () => {
 
     queryResult.docs.map((doc) => {
       // console.log("Result ", doc.data())
-      setChallenges((oldValue) => [...oldValue, doc.data()]);
+      setChallenges((oldValue) => [...oldValue,  doc.data()]);
+      setChallengesId((oldValue) => [...oldValue, doc.id]);
+
     });
 
     setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
     // console.log("last man ", );
   };
 
-  const queryNewChallengeAction = async () => {
-
-        const challengeRef = collection(db, "challenges");
-        const queryChallenge = query(
-          challengeRef,
-          orderBy("publishedAt", "desc"),
-        );
-  };
 
   useEffect(() => {
     const queryChallengeSnap = async () => {
-      const challengeRef = collection(db, "challenges");
+      const challengeRef = collection(firestoreDb, "challenges");
       const queryChallenge = query(
         challengeRef,
         orderBy("publishedAt", "desc"),
@@ -91,6 +139,7 @@ const ChallengesPage = () => {
       queryResult.docs.map((doc) => {
         // console.log("Result ", doc.data())
         setChallenges((oldValue) => [...oldValue, doc.data()]);
+        setChallengesId((oldValue) => [...oldValue, doc.id]);
       });
 
       setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
@@ -128,7 +177,7 @@ const ChallengesPage = () => {
   //   console.log("Yes Yes");
   // });
 
-  // console.log("challenges ", challenges);
+  // console.log("challenges ", challengesId);
 
   return (
     <RootLayout>
@@ -142,9 +191,7 @@ const ChallengesPage = () => {
           </div>
           <div className="default-section-body">
             <div className="load-btn-container">
-              <button onClick={queryNewChallengeAction}>
-                Show new challenges
-              </button>
+              <button>Show new challenges</button>
             </div>
             <div
               className="contents-container challenges-container"
@@ -166,7 +213,7 @@ const ChallengesPage = () => {
                 ? challenges.map((challenge, index) => (
                     <PostCard
                       key={index}
-                      challengeId={challenge.id}
+                      challengeId={challengesId[index]}
                       title={challenge.challengeTitle}
                       description={challenge.challengeDescription}
                       challengeType={challenge.challengeType}
@@ -180,6 +227,7 @@ const ChallengesPage = () => {
                     />
                   ))
                 : null}
+              
             </div>
             <button onClick={queryChallengeSnapAction}>
               Show more challenges

@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 import {
   auth,
-  db,
+  firestoreDb,
   getSpecificUser,
   googleProvider,
 } from "../firebase/firebase-config";
@@ -56,7 +56,7 @@ const LoginPage = () => {
     if (docSnap.exists()) {
       dispatch(loginUser(docSnap.data()));
     } else {
-      const docRef = doc(db, "users", auth.currentUser.uid);
+      const docRef = doc(firestoreDb, "users", auth.currentUser.uid);
       await setDoc(docRef, {
         displayName: auth.currentUser.displayName,
         username: "@" + auth.currentUser.email?.split("@")[0].toLowerCase(),

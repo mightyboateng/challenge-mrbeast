@@ -17,7 +17,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { db } from "../../firebase/firebase-config";
+import { firestoreDb } from "../../firebase/firebase-config";
 // import SideProfile from "../SideProfile";
 // import PostCard from "../PostCard";
 
@@ -50,7 +50,7 @@ const ProfilePage = () => {
       // setOtherUserDetail(userDetail);
       console.log("users are the same");
     } else {
-      const userRef = collection(db, "users");
+      const userRef = collection(firestoreDb, "users");
       const queryUser = query(userRef, where("username", "==", profileId));
       // onSnapshot(queryUser, (doc) => {
       //   setOtherUserDetail(
@@ -73,7 +73,7 @@ const ProfilePage = () => {
     ////////////////////////////////
     // Query for user challenges
     ////////////////////////
-    const challengeRef = collection(db, "challenges");
+    const challengeRef = collection(firestoreDb, "challenges");
     const queryChallenge = query(
       challengeRef,
       where("creatorUsername", "==", profileId),
