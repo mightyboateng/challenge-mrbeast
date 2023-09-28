@@ -1,4 +1,4 @@
-import { Headphones } from "@mui/icons-material";
+import { Favorite, Headphones } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
 import WhiteLogo from "../image/assets/white-logo.svg";
@@ -8,40 +8,41 @@ const LandingPage = () => {
     <div className="landing-page">
       {/* //////////////////////////////////////////
       /////////////////////////////////////////////// */}
-      <nav>
-        <div className="custom-container">
-          <div className="navbar">
-            <Link to="/">
-              <img src={WhiteLogo} width="250" alt="logo" />
-            </Link>
-          </div>
-        </div>
-      </nav>
+      <div className="navbar">
+        <Link to="/">
+          <img src={WhiteLogo} width="200" alt="logo" />
+        </Link>
+      </div>
 
       {/* //////////////////////////////////////////////////
       /////////////////////////////////////////////////// */}
       <div className="landing-body-container">
-        <div className="custom-container">
-          <div className="landing-body">
-            <h2>Empower MrBeast Fans to Shape His Next Challenge Video</h2>
-            <section id="features">
-              <ul>
-                <li>Propose Exciting Challenges</li>
-                <li>Vote on Your Favorite Challenges</li>
-                <li>Potential to Be Featured in MrBeast's Videos</li>
-              </ul>
-            </section>
+        <h1>Challenge MrBeast & his team on his next video</h1>
+        <p>
+          Based on your challenge, other users can up vote or down vote. It
+          could even be a source of inspiration to MrBeast & his team
+        </p>
 
-            <div className="d-flex">
-              <button>
-                <Link to="/challenges">Challenges</Link>
-              </button>
-              <button>
-                <Link to="/login">Login</Link>
-              </button>
-            </div>
-          </div>
+        <div className="d-flex btns-container">
+          <Link to="/challenges">
+            <button className="btn-challenge">Challenges</button>
+          </Link>
+          <Link to="/login">
+            <button className="btn-login">Login</button>
+          </Link>
         </div>
+      </div>
+
+      {/* //////////////////////////////////////////////////
+      /////////////////////////////////////////////////// */}
+      <div className="landing-body-footer">
+        <div className="hr-line"></div>
+        <span className="d-flex justify-content-center">
+          built with <Favorite /> from{"    "}
+          <Link to="https://www.youtube.com/@mightydevs" target="blank">
+            mighty devs
+          </Link>
+        </span>
       </div>
     </div>
   );

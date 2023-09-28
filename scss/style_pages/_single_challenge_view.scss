@@ -1,10 +1,17 @@
 .challenge-view-section {
+
+  .view-post-nav {
+    .MuiSvgIcon-root {
+      color: var(--icon-color-white);
+      font-size: 1rem;
+    }
+  }
   .view-post-card {
     display: flex;
     margin-bottom: 1.5rem;
     margin-top: 1rem;
     padding: 0.5rem;
-
+    color: var(--text-white);
     a {
       color: var(--text-white);
     }
@@ -32,7 +39,7 @@
       .post-ower-img {
         border-radius: 30px;
         border: 1px solid var(--light-grey);
-width: 30px;
+        width: 30px;
       }
 
       .user-detail {
@@ -72,7 +79,7 @@ width: 30px;
       p {
         margin: 0;
         font-size: 1rem;
-            line-height: 30px;
+        line-height: 30px;
       }
     }
 

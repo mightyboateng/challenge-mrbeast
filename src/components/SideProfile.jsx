@@ -7,22 +7,27 @@ import {
   Logout,
   Person,
 } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { useRouter } from "next/navigation";
 // import { UserAuth } from "@/app/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
+import userLocalStorage from "use-local-storage";
+import { switchThemeData } from "../reduxConfig/slices/stateProviderSlice";
 
 const SideProfile = () => {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [showUserOption, setUserOption] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.stateProvider.theme);
+
+  // const [theme, setTheme] = userLocalStorage("theme" ? "dark" : "light");
   // const { theme, setTheme } = useTheme();
-  // const switchTheme = () => {
-  //   const newTheme = theme === "light" ? "dark" : "light";
-  //   setTheme(newTheme);
-  // };
+  const switchTheme = () => {
+    dispatch(switchThemeData(theme === "light" ? "dark" : "light"));
+  };
   // const route = useRouter();
 
   const userOptionAction = () => {
@@ -39,12 +44,12 @@ const SideProfile = () => {
   //       setUserOption("");
   //     }
   //   });
-  // },);
+  // },[showUserOption]);
 
   const handleLogOut = async () => {
     try {
-      signOut(auth)
-      window.location.reload()
+      signOut(auth);
+      window.location.reload();
       // route.refresh()
     } catch (error) {
       alert(`Error from logging out ${error}`);
@@ -57,19 +62,19 @@ const SideProfile = () => {
     <div className="sidebar-profile">
       <div className={`sidebar-options ${showUserOption}`}>
         {!userDetail ? (
-        <div
-          className="option-item cursor-pointer"
-          onClick={() => navigate("/login")}
-        >
-          <Login /> Login
-        </div>
+          <div
+            className="option-item cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            <Login /> Login
+          </div>
         ) : (
           <div className="option-item cursor-pointer" onClick={handleLogOut}>
             <Logout /> Logout
           </div>
         )}
 
-        <div className="option-item cursor-pointer">
+        <div className="option-item cursor-pointer" onClick={switchTheme}>
           <DarkMode />
           <span>Dark mode</span>
         </div>
@@ -79,7 +84,7 @@ const SideProfile = () => {
         onClick={userOptionAction}
       >
         <Person />
-        <span>{userDetail !==null ? userDetail.username : null}</span>
+        <span>{userDetail !== null ? userDetail.username : null}</span>
       </div>
     </div>
   );

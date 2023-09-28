@@ -1,0 +1,59 @@
+.big-notification-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--popup-layer-background);
+  display: none !important;
+
+  .notification-card {
+    height: 100%;
+    width: 100%;
+    background: var(--popup-background-color);
+    padding: 1rem;
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      button {
+        padding: 0.5rem 2rem;
+        border-radius: 30px;
+        border: none;
+        font-size: 1rem;
+        color: white;
+        background: var(--primary-blue);
+      }
+    }
+
+    .card-body {
+          button{
+      padding: 0.5rem;
+      border-radius: 50px;
+      border: 1px solid var(--primary-red);
+      
+    }
+    }
+  }
+}
+
+@media (min-width: 550px) {
+  .big-notification-container  {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+
+    .notification-card {
+      width: 530px;
+      height: fit-content;
+      border-radius: 5px;
+    }
+  }
+}
+
+
+.show-create-section {
+  display: flex !important;
+}

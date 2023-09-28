@@ -6,7 +6,7 @@
   --sleep-blue: #19a7ce4a;
   --background-white-2: #f8f9fa;
   --grey: grey;
-  --light-text-gray:#2c2c2c;
+  --light-text-gray: #2c2c2c;
   --light-grey: rgb(233, 233, 233);
   --grey-active-sidebar-item: rgba(230, 230, 230, 0.548);
   --background-color: rgb(255, 255, 255);
@@ -29,7 +29,7 @@
   --primary-red: #e04476;
   --background-white-2: #f8f9fa;
   --grey: grey;
-  --light-text-gray:#a7a8a9;
+  --light-text-gray: #a7a8a9;
   --light-grey: rgba(255, 255, 255, 0.247);
   --grey-active-sidebar-item: rgba(255, 255, 255, 0.055);
   --background-color: rgb(0, 0, 0);
@@ -107,7 +107,7 @@ button {
 }
 
 .custom-icon-color {
- fill: var(--icon-color-white);
+  fill: var(--icon-color-white);
 }
 
 .justify-content-center {
@@ -164,65 +164,79 @@ button {
   background: none;
 }
 
-
 .bg-fill-danger {
   fill: var(--primary-red) !important;
 }
-  .MuiCircularProgress-root {
-    width: 20px !important;
-    height: 20px !important;
-  }
-
+.MuiCircularProgress-root {
+  width: 20px !important;
+  height: 20px !important;
+}
 
 //---***  Challenge, Create, Mrbeast , and Profile layout content ***---//
 .default-section {
   .default-section-container {
     display: flex;
     flex-direction: column;
-      .default-section-nav {
-        display: flex;
-        align-items: center;
-        padding: 0.3rem;
-        border-bottom: 0.1rem solid var(--light-grey);
-
-        h3 {
-          margin: 0;
-        }
-      }
-
-      .default-section-body {
-        overflow-y: scroll;
-        height: calc(100vh - 6rem);
+    .default-section-nav {
+      display: flex;
+      align-items: center;
+      padding: 0.3rem;
+      border-bottom: 0.1rem solid var(--light-grey);
+      
+      color: var(--text-white);
+      h3 {
+        margin: 0;
       }
     }
-  
+
+    .default-section-body {
+      overflow-y: scroll;
+      height: calc(100vh -  5.4rem);
+    }
+
+    // #feedChallengesContainerId {
+    //   // background: green;
+    //   overflow-y: scroll;
+    //   height: calc(100vh - 5.4rem);
+
+    //   h1 {
+    //     margin: 0;
+    //   }
+    // }
+  }
 }
 
 @media (min-width: 391px) {
   .default-section {
     .default-section-container {
-        .default-section-body {
-          height: calc(100vh - 7rem);
-        }
+      .default-section-body {
+        height: calc(100vh - 6.7rem);
       }
+      // #feedChallengesContainerId {
+      //   // background: red;
+      //   height: calc(100vh - 6.7rem);
+      // }
     }
   }
-
+}
 
 @media (min-width: 501px) {
   .default-section {
     .default-section-container {
-        .default-section-body {
-          height: calc(100vh - 3rem);
-        }
+      .default-section-body {
+        height: calc(100vh - 2.5rem);
       }
-    
+      // #feedChallengesContainerId {
+      //   // background: yellow;
+      //   height: calc(100vh - 2.5rem);
+      // }
+    }
   }
 }
 
 @media (min-width: 992px) {
   .default-section {
-   .default-section-container {
+    .default-section-container {
       display: flex;
       width: 100%;
     }

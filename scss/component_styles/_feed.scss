@@ -1,4 +1,5 @@
 .feed-section {
+  position: relative;
   .user-feed-container {
     margin: 1rem 0;
     //     height: 150px;
@@ -26,6 +27,31 @@
       border: 0.1rem solid var(--light-grey);
     }
   }
+
+  .load-btn-container{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 0.2rem 0;
+    z-index: -3;
+
+    button{
+      padding: 0.5rem;
+      border-radius: 50px;
+      border: 1px solid var(--primary-red);
+      
+    }
+  }
+
+
+}
+
+.show-load-new-button-challenge {
+  top: 50px !important;
+  z-index: 1 !important;
 }
 
 .loading-component {
@@ -35,4 +61,5 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background:var(--background-color);
 }

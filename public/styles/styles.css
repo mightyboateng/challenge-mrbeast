@@ -5,7 +5,7 @@
   --sleep-blue: #19a7ce4a;
   --background-white-2: #f8f9fa;
   --grey: grey;
-  --light-text-gray:#2c2c2c;
+  --light-text-gray: #2c2c2c;
   --light-grey: rgb(233, 233, 233);
   --grey-active-sidebar-item: rgba(230, 230, 230, 0.548);
   --background-color: rgb(255, 255, 255);
@@ -27,7 +27,7 @@
   --primary-red: #e04476;
   --background-white-2: #f8f9fa;
   --grey: grey;
-  --light-text-gray:#a7a8a9;
+  --light-text-gray: #a7a8a9;
   --light-grey: rgba(255, 255, 255, 0.247);
   --grey-active-sidebar-item: rgba(255, 255, 255, 0.055);
   --background-color: rgb(0, 0, 0);
@@ -179,23 +179,24 @@ button {
   align-items: center;
   padding: 0.3rem;
   border-bottom: 0.1rem solid var(--light-grey);
+  color: var(--text-white);
 }
 .default-section .default-section-container .default-section-nav h3 {
   margin: 0;
 }
 .default-section .default-section-container .default-section-body {
   overflow-y: scroll;
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 5.4rem);
 }
 
 @media (min-width: 391px) {
   .default-section .default-section-container .default-section-body {
-    height: calc(100vh - 7rem);
+    height: calc(100vh - 6.7rem);
   }
 }
 @media (min-width: 501px) {
   .default-section .default-section-container .default-section-body {
-    height: calc(100vh - 3rem);
+    height: calc(100vh - 2.5rem);
   }
 }
 @media (min-width: 992px) {
@@ -337,54 +338,81 @@ main .content-section {
 }
 .landing-page {
   background: var(--landing-primary-background);
-}
-.landing-page nav .navbar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: 100vh;
+}
+.landing-page .navbar {
   padding: 1rem 0.5rem;
-  align-items: center;
-}
-.landing-page nav .navbar a {
-  text-decoration: none;
-  color: var(--landing-text-primary);
-}
-.landing-page nav .navbar .login-signup p {
-  margin: 0;
-  font-weight: 900;
-  text-decoration: underline;
-  cursor: pointer;
 }
 .landing-page .landing-body-container {
-  display: flex;
-}
-.landing-page .landing-body-container .landing-body {
-  height: 100vh;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 588px;
-}
-.landing-page .landing-body-container .landing-body h2 {
   text-align: center;
-  color: var(--landing-text-primary);
-  font-weight: normal;
 }
-.landing-page .landing-body-container .landing-body h2 span {
-  font-weight: 900;
-  text-decoration: underline;
+.landing-page .landing-body-container h1 {
+  margin: 0;
+  line-height: 2.5rem;
+  color: white;
 }
-.landing-page .landing-body-container .landing-body a {
+.landing-page .landing-body-container p {
+  font-size: 1rem;
+  color: white;
+}
+.landing-page .landing-body-container .btns-container {
+  flex-direction: column;
+}
+.landing-page .landing-body-container a {
   text-decoration: none;
-  color: var(--landing-button-text);
 }
-.landing-page .landing-body-container .landing-body button {
-  padding: 1rem 3rem;
+.landing-page .landing-body-container button {
+  padding: 0.5rem 2rem;
   border: none;
-  background: var(--landing-text-primary);
   border-radius: 30px;
   font-size: 18px;
   cursor: pointer;
+}
+.landing-page .landing-body-container .btn-challenge {
+  border: 1px solid var(--primary-red);
+  background: transparent;
+  color: white;
+  margin-bottom: 1rem;
+}
+.landing-page .landing-body-container .btn-challenge a {
+  text-decoration: none;
+  color: white;
+}
+.landing-page .landing-body-container .btn-login {
+  background: var(--primary-red);
+  color: white;
+  margin-bottom: 1rem;
+}
+.landing-page .landing-body-container .btn-login a {
+  text-decoration: none;
+  color: white;
+}
+.landing-page .landing-body-footer {
+  padding: 1rem;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: white;
+}
+.landing-page .landing-body-footer .hr-line {
+  margin-bottom: 0.5rem;
+  border-top: 1px solid var(--light-grey);
+}
+.landing-page .landing-body-footer .MuiSvgIcon-root {
+  color: red;
+  font-size: 1rem;
+  margin: 0 0.2rem;
+}
+.landing-page .landing-body-footer a {
+  margin-left: 0.2rem;
+  color: red;
+  font-weight: bold;
 }
 
 .loading-body {
@@ -394,6 +422,37 @@ main .content-section {
   place-items: center;
 }
 
+@media (min-width: 600px) {
+  .landing-page .landing-body-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .landing-page .landing-body-container h1 {
+    width: 580px;
+    font-size: 2.8rem;
+  }
+  .landing-page .landing-body-container .btns-container {
+    flex-direction: row;
+  }
+  .landing-page .landing-body-container button {
+    margin: 0 0.5rem;
+  }
+}
+@media (min-width: 850px) {
+  .landing-page .landing-body-container h1 {
+    width: 850px;
+    font-size: 5rem;
+    line-height: 4.5rem;
+  }
+  .landing-page .landing-body-container p {
+    font-size: 1.2rem;
+    width: 800px;
+  }
+}
 .login-signup-section {
   display: flex;
   height: 100vh;
@@ -600,11 +659,16 @@ main .content-section {
   width: fit-content;
 }
 
+.challenge-view-section .view-post-nav .MuiSvgIcon-root {
+  color: var(--icon-color-white);
+  font-size: 1rem;
+}
 .challenge-view-section .view-post-card {
   display: flex;
   margin-bottom: 1.5rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  color: var(--text-white);
 }
 .challenge-view-section .view-post-card a {
   color: var(--text-white);
@@ -720,6 +784,9 @@ main .content-section {
   font-size: 1rem;
 }
 
+.feed-section {
+  position: relative;
+}
 .feed-section .user-feed-container {
   margin: 1rem 0;
   padding: 1rem;
@@ -740,6 +807,26 @@ main .content-section {
   border-radius: 5px;
   border: 0.1rem solid var(--light-grey);
 }
+.feed-section .load-btn-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 0.2rem 0;
+  z-index: -3;
+}
+.feed-section .load-btn-container button {
+  padding: 0.5rem;
+  border-radius: 50px;
+  border: 1px solid var(--primary-red);
+}
+
+.show-load-new-button-challenge {
+  top: 50px !important;
+  z-index: 1 !important;
+}
 
 .loading-component {
   height: 100vh;
@@ -748,6 +835,7 @@ main .content-section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: var(--background-color);
 }
 
 .profile-section .user-image-banner {
@@ -775,6 +863,7 @@ main .content-section {
 .profile-section .user-details {
   margin-top: 3rem;
   padding: 0 0.5rem;
+  color: var(--text-white);
 }
 .profile-section .user-details h4 {
   margin: 0;
@@ -816,6 +905,7 @@ main .content-section {
   margin-bottom: 1.5rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  color: var(--text-white);
 }
 .post-card a {
   color: var(--text-white);
@@ -997,11 +1087,13 @@ main .content-section {
   left: 6px;
   top: 44px;
   display: none;
+  z-index: 24;
 }
 .sidebar-options .option-item {
   display: flex;
   align-items: center;
   padding: 1rem;
+  color: var(--text-white);
 }
 .sidebar-options .option-item .MuiSvgIcon-root {
   margin-right: 0.5rem;
@@ -1130,6 +1222,55 @@ main .content-section {
     height: fit-content;
     border-radius: 5px;
   }
+}
+.big-notification-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--popup-layer-background);
+  display: none !important;
+}
+.big-notification-container .notification-card {
+  height: 100%;
+  width: 100%;
+  background: var(--popup-background-color);
+  padding: 1rem;
+}
+.big-notification-container .notification-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.big-notification-container .notification-card .card-header button {
+  padding: 0.5rem 2rem;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  background: var(--primary-blue);
+}
+.big-notification-container .notification-card .card-body button {
+  padding: 0.5rem;
+  border-radius: 50px;
+  border: 1px solid var(--primary-red);
+}
+
+@media (min-width: 550px) {
+  .big-notification-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+  }
+  .big-notification-container .notification-card {
+    width: 530px;
+    height: fit-content;
+    border-radius: 5px;
+  }
+}
+.show-create-section {
+  display: flex !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

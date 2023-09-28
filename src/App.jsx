@@ -8,10 +8,16 @@ import MrBeastPage from "./pages/root/mr-beast";
 import SingleChallengeView from "./pages/root/single-challenge-view";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
+import BigNotificationContainer from "./components/BigNotificationContainer";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const theme = useSelector((state) => state.stateProvider.theme);
+
+  console.log("theme ", theme)
   return (
-    <div className="App">
+    <div className="App" data-theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -27,6 +33,8 @@ function App() {
           <Route path="/profile/:profileId" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
+
+      <BigNotificationContainer />
     </div>
   );
 }

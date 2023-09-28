@@ -16,7 +16,6 @@ import UserImg from "../image/icons/iconamoon_profile.svg";
 import VoteFunctionContainer from "./VoteFunctionContainer";
 import { Link } from "react-router-dom";
 
-
 const PostCard = ({
   challengeId,
   title,
@@ -25,14 +24,46 @@ const PostCard = ({
   creator,
   publishedAt,
 }) => {
-  const [voteUp, setVoteUp] = useState(false);
-  const [voteDown, setVoteDown] = useState(false);
+  // Convert Firestore timestamp to JavaScript Date object
+  const postDate = new Date(
+    publishedAt.seconds * 1000 + publishedAt.nanoseconds / 1000000
+  );
 
-  const voteUpAction = () => {
-  };
+  // Get the current time
+  const currentDate = new Date();
 
-  const voteDownAction = () => {};
+  // Calculate the time difference in milliseconds
+  const timeDifferenceMillis = currentDate - postDate;
 
+  // Define time intervals in milliseconds
+  const minuteMillis = 60 * 1000;
+  const hourMillis = 60 * minuteMillis;
+  const dayMillis = 24 * hourMillis;
+
+  let timeAgoText;
+
+  if (timeDifferenceMillis < minuteMillis) {
+    // Less than a minute ago
+    const secondsAgo = Math.floor(timeDifferenceMillis / 1000);
+    timeAgoText =
+      secondsAgo + (secondsAgo === 1 ? " second ago" : " seconds ago");
+  } else if (timeDifferenceMillis < hourMillis) {
+    // Less than an hour ago
+    const minutesAgo = Math.floor(timeDifferenceMillis / minuteMillis);
+    timeAgoText =
+      minutesAgo + (minutesAgo === 1 ? " minute ago" : " minutes ago");
+  } else if (timeDifferenceMillis < dayMillis) {
+    // Less than a day ago
+    const hoursAgo = Math.floor(timeDifferenceMillis / hourMillis);
+    timeAgoText = hoursAgo + (hoursAgo === 1 ? " hour ago" : " hours ago");
+  } else {
+    // More than a day ago
+    timeAgoText = postDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
 
   return (
     <div className="post-card">
@@ -51,7 +82,7 @@ const PostCard = ({
                 {creator}
               </Link>
             </p>
-            <span>{publishedAt}</span>
+            <span>{timeAgoText}</span>
           </div>
         </div>
         <Link

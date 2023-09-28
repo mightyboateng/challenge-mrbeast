@@ -30,12 +30,14 @@
   left: 6px;
   top: 44px;
   display: none;
+  z-index: 24;
   //     padding: 1rem;
 
   .option-item {
     display: flex;
     align-items: center;
     padding: 1rem;
+    color: var(--text-white);
 
     .MuiSvgIcon-root {
       margin-right: 0.5rem;
