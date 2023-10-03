@@ -5,6 +5,7 @@ export const challengeSlice = createSlice({
   initialState: {
     challengeList: [],
     challengeListLength: 0,
+    challengeLastDoc:null
   },
   reducers: {
     loadFirstChallengeList: (state, action) => {
@@ -19,12 +20,15 @@ export const challengeSlice = createSlice({
       state.challengeList = [...state.challengeList, ...action.payload];
       state.challengeListLength = state.challengeList.length;
     },
+    updateLastDoc:(state,action)=>{
+      state.challengeLastDoc= action.payload
+    }
   },
 });
 
 export const {
   loadFirstChallengeList,
-  loadMoreChallengeList,
+  loadMoreChallengeList,updateLastDoc
 } = challengeSlice.actions;
 
 export default challengeSlice.reducer;
