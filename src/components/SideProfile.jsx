@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from "react";
-// import { useTheme } from "next-themes";
+import React, {  useState } from "react";
 import {
   DarkMode,
-  LightModeOutlined,
+  LightMode,
   Login,
   Logout,
   Person,
 } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-// import { useRouter } from "next/navigation";
-// import { UserAuth } from "@/app/context/AuthContext";
+import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
-import userLocalStorage from "use-local-storage";
-import { switchThemeData } from "../reduxConfig/slices/stateProviderSlice";
+import { useThemeData } from "./ThemeDataContext";
 
 const SideProfile = () => {
   const userDetail = useSelector((state) => state.user.userDetail);
   const [showUserOption, setUserOption] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  // const [theme, setTheme] = userLocalStorage("theme" ? "dark" : "light");
-  // const { theme, setTheme } = useTheme();
+  const { setThemeData, themeData } = useThemeData();
 
-  // const route = useRouter();
+  const switchTheme = () => {
+    setThemeData(themeData === "light" ? "dark" : "light");
+  };
+
 
   const userOptionAction = () => {
     if (showUserOption === "") {
@@ -34,14 +31,6 @@ const SideProfile = () => {
       setUserOption("");
     }
   };
-
-  // useEffect(() => {
-  //   document.body.addEventListener("click", () => {
-  //     if (showUserOption === "display-options") {
-  //       setUserOption("");
-  //     }
-  //   });
-  // },[showUserOption]);
 
   const handleLogOut = async () => {
     try {
@@ -53,7 +42,6 @@ const SideProfile = () => {
     }
   };
 
-  // console.log("UserDetail",userDetail)
 
   return (
     <div className="sidebar-profile">
@@ -71,16 +59,34 @@ const SideProfile = () => {
           </div>
         )}
 
-        <div className="option-item cursor-pointer">
-          <DarkMode />
-          <span>Dark mode</span>
+        <div className="option-item cursor-pointer" onClick={switchTheme}>
+          {themeData === "light" ? (
+            <>
+              <DarkMode />
+              <span>Dark mode</span>
+            </>
+          ) : (
+            <>
+              <LightMode />
+              <span>Light mode</span>
+            </>
+          )}
         </div>
       </div>
       <div
         className="sidebar-profile-img cursor-pointer"
         onClick={userOptionAction}
       >
-        <Person />
+        {userDetail !== null ? (
+          <img
+            className="user-side-photo"
+            src={userDetail.photoURL}
+            alt={userDetail.username}
+          />
+        ) : (
+          <Person />
+        )}
+
         <span>{userDetail !== null ? userDetail.username : null}</span>
       </div>
     </div>

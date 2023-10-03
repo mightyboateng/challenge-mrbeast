@@ -9,17 +9,14 @@ import SingleChallengeView from "./pages/root/single-challenge-view";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import BigNotificationContainer from "./components/BigNotificationContainer";
-import { useSelector } from "react-redux";
 import { useThemeData } from "./components/ThemeDataContext";
 
 function App() {
 
   const {themeData } = useThemeData()
 
-  console.log("Theme ", themeData)
-
   return (
-    <div className="App" >
+    <div className="App" data-theme={themeData}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
