@@ -106,7 +106,7 @@ const ChallengesPage = () => {
   });
 
   return (
-    <RootLayout>
+    <RootLayout title="Challenges">
       <div className="default-section feed-section">
         <div className="default-section-container">
           <div className="default-section-nav">

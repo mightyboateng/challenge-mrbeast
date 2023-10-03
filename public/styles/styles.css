@@ -356,6 +356,7 @@ main .content-section {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 0 1rem;
 }
 .landing-page .landing-body-container h1 {
   margin: 0;
@@ -363,7 +364,7 @@ main .content-section {
   color: white;
 }
 .landing-page .landing-body-container p {
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: white;
 }
 .landing-page .landing-body-container .btns-container {
@@ -843,7 +844,7 @@ main .content-section {
   background: var(--background-color);
 }
 .loading-component img {
-  width: 50px;
+  width: 90px;
 }
 
 .profile-section .user-image-banner {
