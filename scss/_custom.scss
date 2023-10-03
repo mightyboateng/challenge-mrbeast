@@ -198,16 +198,6 @@ button {
       overflow-y: scroll;
       height: calc(100vh -  5.4rem);
     }
-
-    // #feedChallengesContainerId {
-    //   // background: green;
-    //   overflow-y: scroll;
-    //   height: calc(100vh - 5.4rem);
-
-    //   h1 {
-    //     margin: 0;
-    //   }
-    // }
   }
 }
 
@@ -217,10 +207,6 @@ button {
       .default-section-body {
         height: calc(100vh - 6.7rem);
       }
-      // #feedChallengesContainerId {
-      //   // background: red;
-      //   height: calc(100vh - 6.7rem);
-      // }
     }
   }
 }
@@ -231,10 +217,6 @@ button {
       .default-section-body {
         height: calc(100vh - 2.5rem);
       }
-      // #feedChallengesContainerId {
-      //   // background: yellow;
-      //   height: calc(100vh - 2.5rem);
-      // }
     }
   }
 }

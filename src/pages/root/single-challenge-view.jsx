@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import RootLayout from "../../components/RootLayout";
-import { ArrowBackIos, Share, Comment } from "@mui/icons-material";
-// import Link from "next/link";
+import { ArrowBack, Share} from "@mui/icons-material";
 import { Link, useNavigate, useParams } from "react-router-dom";
-// import Image from "next/image";
-// import VoteFunctionContainer from "@/components/VoteFunctionContainer";
 import VoteFunctionContainer from "../../components/VoteFunctionContainer";
 import UserImage from "../../image/icons/iconamoon_profile.svg";
 import { useSelector } from "react-redux";
-import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import { Timestamp, doc, getDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
 
@@ -19,8 +16,6 @@ const SingleChallengeView = () => {
   const { challengeId } = useParams();
   const navigate = useNavigate();
 
-  // console.log("Challenge Result ", result);
-  // console.log("Challenge List ", challengeList);
 
   useEffect(() => {
     const getChallengeDetailFromRedux = () => {
@@ -50,15 +45,13 @@ const SingleChallengeView = () => {
     };
   }, [challengeId, challengeList]);
 
-  console.log("Detail ", challengeDetail);
   return (
     <RootLayout>
       <div className="default-section challenge-view-section">
         <div className="default-section-container">
           <div className="default-section-nav view-post-nav">
-            {/* <Link to="/challenges"> */}
-            <ArrowBackIos onClick={() => navigate(-1)} />
-            {/* </Link> */}
+            <ArrowBack onClick={() => navigate(-1)} />
+
             <h3>Challenge details</h3>
           </div>
 
@@ -94,8 +87,14 @@ const SingleChallengeView = () => {
                           {challengeDetail.data().creatorUsername}
                         </Link>
                       </p>
-                      {/* <span>{challengeDetail.data().publishedAt}</span> */}
-                      <span>1 day ago</span>
+                      <span>
+                        {
+                          new Timestamp(
+                            challengeDetail.data().publishedAt.seconds,
+                            challengeDetail.data().publishedAt.nanoseconds
+                          ).toDate().toDateString()
+                        }
+                      </span>
                     </div>
                   </div>
                   <div className="view-post-body">

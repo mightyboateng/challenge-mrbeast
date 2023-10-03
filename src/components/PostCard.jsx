@@ -1,18 +1,8 @@
 import {
-  FavoriteBorder,
-  Favorite,
-  Comment,
   Share,
-  ArrowUpward,
-  ThumbUp,
-  ThumbDown,
-  ThumbUpOutlined,
-  ThumbDownOutlined,
 } from "@mui/icons-material";
-// import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import UserImg from "../image/icons/iconamoon_profile.svg";
-// import Link from "next/link";
 import VoteFunctionContainer from "./VoteFunctionContainer";
 import { Link } from "react-router-dom";
 
@@ -24,6 +14,7 @@ const PostCard = ({
   creator,
   publishedAt,
 }) => {
+
   // Convert Firestore timestamp to JavaScript Date object
   const postDate = new Date(
     publishedAt.seconds * 1000 + publishedAt.nanoseconds / 1000000
@@ -95,21 +86,17 @@ const PostCard = ({
           </div>
         </Link>
         <div className="post-footer">
-          {/* <Image src={UserImg} width="20" height="20" alt="user-img" /> */}
           <VoteFunctionContainer
             flexDirection="flex-row"
             displayClass="hide-sm-vote"
             challengeId={challengeId}
           />
-          {/* <div className="post-footer-item">
-            <Comment />
-            <span>22 Comments</span>
-          </div> */}
+
           <div className="post-footer-item">
             <Share />
             <span>Share</span>
+            {/* {totalVotes.totalVotes} */}
           </div>
-          {/* <Favorite /> */}
         </div>
       </div>
     </div>

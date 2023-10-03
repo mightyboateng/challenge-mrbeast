@@ -1,7 +1,5 @@
-import { Visibility, DateRangeOutlined, Share } from "@mui/icons-material";
 import React from "react";
 import VoteFunctionContainer from "./VoteFunctionContainer";
-// import Image from "next/image";
 import ThumbnailImage from "../image/assets/thumbnail.png";
 
 const MrBeastVideoPostCard = () => {

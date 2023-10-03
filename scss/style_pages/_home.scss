@@ -1,8 +1,6 @@
 main {
   background: var(--background-color);
-  .home-section {
-    // height: 100vh;
-  }
+
 
   .sidebar-bottom-navbar {
     position: absolute;
@@ -44,10 +42,6 @@ main {
     .sidebar-item:hover {
       background: none;
     }
-
-    // .create {
-    //   background: var(--primary-blue);
-    // }
 
     .active-sidebar-item {
       border-bottom: 5px solid var(--grey-active-sidebar-item);

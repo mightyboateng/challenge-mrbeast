@@ -2,7 +2,7 @@ import { Close, ThumbDown, ThumbUp } from "@mui/icons-material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showNotificationBanner } from "../reduxConfig/slices/userSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const BigNotificationContainer = () => {
   const dispatch = useDispatch();

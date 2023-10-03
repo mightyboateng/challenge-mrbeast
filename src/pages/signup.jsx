@@ -28,14 +28,10 @@ const SignupPage = () => {
     setBtnIsLoading(true);
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // // const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
 
         getUserDetailFromFirestore(user.uid);
 
-        // console.log("User", user);
       })
       .catch((error) => {
         // Handle Errors here.
@@ -69,8 +65,6 @@ const SignupPage = () => {
           uid: auth.currentUser.uid,
         })
       );
-
-      // setIsLoading(false);
     }
   }
 

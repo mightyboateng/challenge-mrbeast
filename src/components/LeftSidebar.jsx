@@ -13,7 +13,6 @@ import SideProfile from "./SideProfile";
 
 function LeftSidebar() {
   const { pathname } = useLocation();
-  // const path = Pathname()
 
   const userDetails = useSelector((state) => state.user.userDetail);
 

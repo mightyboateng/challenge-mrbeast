@@ -1,6 +1,5 @@
 import React from 'react'
 import RootLayout from '../../components/RootLayout'
-import MrBeastVideoPostCard from '../../components/MrBeastVideoPostCard'
 import SideProfile from '../../components/SideProfile';
 import UserImg from "../../image/icons/iconamoon_profile.svg";
 

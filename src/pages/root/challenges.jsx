@@ -84,7 +84,8 @@ const ChallengesPage = () => {
         container.scrollTop + container.clientHeight + 15 >= loader.offsetTop;
 
       if (isAtBottom) {
-        // queryMoreChallengeAction();
+        console.log("we are in")
+        queryMoreChallengeAction();
       }
     }
   };
@@ -138,10 +139,7 @@ const ChallengesPage = () => {
                 </div>
               )}
             </div>
-            <button onClick={queryMoreChallengeAction}>
-              Show more challenges
-            </button>
-            <div>Loading...</div>
+            
             {challengeLastDoc ? (
               <div className="d-flex justify-content-center" ref={scrollRef}>
                 <CircularProgress />

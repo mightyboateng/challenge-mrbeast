@@ -1,34 +1,23 @@
 import RootLayout from "../../components/RootLayout";
-
-// import SideProfile from "@/components/SideProfile";
-// import { db } from "@/firebase/firebase_config";
-
 import { Public } from "@mui/icons-material";
-// import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-// import { useRouter } from "next/navigation";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import SideProfile from "../../components/SideProfile";
 import {
   addDoc,
   collection,
   serverTimestamp,
-  updateDoc,
 } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 
 const CreateChallengePage = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [mbType, setMbType] = useState("");
   const userDetail = useSelector((state) => state.user.userDetail);
   const navigate = useNavigate();
 
   const handleChallengeSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log(e.target.channel.value);
 
     const challengeRef = collection(firestoreDb, "challenges");
     await addDoc(challengeRef, {
@@ -38,9 +27,11 @@ const CreateChallengePage = () => {
       creator: userDetail.uid,
       creatorUsername: userDetail.username,
       publishedAt: serverTimestamp(),
-    });
+    }).then(()=>{
 
-    navigate("/challenges");
+      navigate("/challenges");
+    })
+
   };
 
   return (
@@ -59,7 +50,6 @@ const CreateChallengePage = () => {
                 <form onSubmit={handleChallengeSubmit}>
                   <select
                     name="channel"
-                    onChange={(e) => setMbType(e.target.value)}
                   >
                     <option value="mb/charity">mb/charity</option>
                     <option value="mb/gaming">mb/gaming</option>

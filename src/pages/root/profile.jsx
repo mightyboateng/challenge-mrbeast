@@ -2,17 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import RootLayout from "../../components/RootLayout";
 import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
-
-import UserImg from "../../image/icons/iconamoon_profile.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-  Timestamp,
   collection,
-  getDoc,
   getDocs,
   limit,
-  onSnapshot,
   orderBy,
   query,
   startAfter,
@@ -21,16 +16,10 @@ import {
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
 import { updateUserProfileDetail } from "../../reduxConfig/slices/userSlice";
-// import SideProfile from "../SideProfile";
-// import PostCard from "../PostCard";
 
 const ProfilePage = () => {
-  // const {pathname} = useLocation
   const { profileId } = useParams();
-
-  const userDetail = useSelector((state) => state.user.userDetail);
   const userProfileDetail = useSelector((state) => state.user.userProfile);
-  const [otherUserDetail, setOtherUserDetail] = useState();
   const [challenges, setChallenges] = useState([]);
   const [challengesId, setChallengesId] = useState([]);
   const [lastDoc, setLastDoc] = useState("");
@@ -47,7 +36,6 @@ const ProfilePage = () => {
 
     const queryUserSnap = async () => {
       const result = await getDocs(queryUser);
-      setOtherUserDetail(result.docs[0].data());
     dispatch(updateUserProfileDetail(result.docs[0].data()));
     };
 
