@@ -31,24 +31,24 @@ const MrBeastPage = () => {
         //////////////////////////////////////////////// */}
             <div className="user-details">
               <div className="follow">
-                {/* <p>
-                <span>184M </span>Subscribers
-              </p>
-              <p>
-                <span>870 </span>Videos 
-              </p>*/}
                 <p>
+                  <span>184M </span>Subscribers
+                </p>
+                <p>
+                  <span>870 </span>Videos
+                </p>
+                {/* <p>
                   Let Mrbeast and his team know which videos are best and which
                   videos are shit. <span>Up-vote</span> or{" "}
                   <span>Down-vote</span> Mr beast videos.
-                </p>
+                </p> */}
               </div>
             </div>
 
             {/* ////////////////////////////////////////////////
                 User Post & Groups & Review
         //////////////////////////////////////////////// */}
-            <div className="post-group-container">
+            {/* <div className="post-group-container">
               <MrBeastVideoPostCard />
               <MrBeastVideoPostCard />
               <MrBeastVideoPostCard />
@@ -65,6 +65,10 @@ const MrBeastPage = () => {
               <MrBeastVideoPostCard />
               <MrBeastVideoPostCard />
               <MrBeastVideoPostCard />
+            </div> */}
+            <div className="d-flex justify-content-center flex-column align-items-center">
+              <h1>Coming soon</h1>
+              
             </div>
           </div>
         </div>

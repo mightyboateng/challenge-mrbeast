@@ -1,29 +1,52 @@
-import { Close, ThumbDown, ThumbUp } from '@mui/icons-material';
-import React from 'react'
+import { Close, ThumbDown, ThumbUp } from "@mui/icons-material";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { showNotificationBanner } from "../reduxConfig/slices/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 const BigNotificationContainer = () => {
+  const dispatch = useDispatch();
+  const displayBanner = useSelector((state) => state.user.userNotification);
+  const navigate = useNavigate();
 
-  const handleCloseNotificationAction =()=>{
-    
-  }
+  const handleCloseNotificationAction = () => {
+    dispatch(showNotificationBanner(""));
+  };
+
+  const handleLoginNavigate = () => {
+    navigate("/login");
+    dispatch(showNotificationBanner(""));
+  };
+
+  const handleSignupNavigate = () => {
+    navigate("/login");
+    dispatch(showNotificationBanner(""));
+  };
   return (
-    <div className="big-notification-container">
+    <div className={`big-notification-container ${displayBanner}`}>
       <div className="notification-card">
         <div className="card-head">
-          <Close onClick={handleCloseNotificationAction}/>
+          <Close
+            onClick={handleCloseNotificationAction}
+            className="cursor-pointer"
+          />
         </div>
         <div className="card-body">
           <h3>Login or Sign up </h3>
-          <p className=''>
-            Having a challenge in mind! Wanting to vote a challenge <ThumbDown /> or <ThumbUp />, login or sign up to submit the best
-            ideas
+          <p className="">
+            Having a challenge in mind! Wanting to vote a challenge{" "}
+            <span>
+              <ThumbDown /> or <ThumbUp />
+            </span>{" "}
+            , login or sign up to submit the best ideas
           </p>
-          <button>Login now</button>
-          <button>Sign up now</button>
+
+          <button onClick={handleLoginNavigate}>Login now</button>
+          <button onClick={handleSignupNavigate}>Sign up now</button>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default BigNotificationContainer
+export default BigNotificationContainer;

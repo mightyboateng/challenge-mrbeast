@@ -116,6 +116,10 @@ button {
   justify-content: center;
 }
 
+.justify-content-start {
+  justify-content: start;
+}
+
 .text-decoration-none {
   text-decoration: none;
 }
@@ -616,6 +620,7 @@ main .content-section {
   border: 0.1rem solid var(--primary-red);
   border-radius: 5px;
   padding: 0.5rem;
+  color: var(--text-white);
 }
 .create-section .create-card .card-body textarea {
   width: 100%;
@@ -836,6 +841,9 @@ main .content-section {
   align-items: center;
   justify-content: center;
   background: var(--background-color);
+}
+.loading-component img {
+  width: 50px;
 }
 
 .profile-section .user-image-banner {
@@ -1137,6 +1145,19 @@ main .content-section {
 .hide-lg-vote {
   display: none;
 }
+.hide-lg-vote span {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.hide-sm-vote {
+  display: flex;
+}
+.hide-sm-vote span {
+  display: flex;
+  align-items: center;
+}
 
 @media (min-width: 501px) {
   .hide-sm-vote {
@@ -1237,6 +1258,7 @@ main .content-section {
   width: 100%;
   background: var(--popup-background-color);
   padding: 1rem;
+  color: var(--text-white);
 }
 .big-notification-container .notification-card .card-header {
   display: flex;

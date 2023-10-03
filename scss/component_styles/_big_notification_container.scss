@@ -12,6 +12,7 @@
     width: 100%;
     background: var(--popup-background-color);
     padding: 1rem;
+    color: var(--text-white);
 
     .card-header {
       display: flex;
@@ -29,18 +30,17 @@
     }
 
     .card-body {
-          button{
-      padding: 0.5rem;
-      border-radius: 50px;
-      border: 1px solid var(--primary-red);
-      
-    }
+      button {
+        padding: 0.5rem;
+        border-radius: 50px;
+        border: 1px solid var(--primary-red);
+      }
     }
   }
 }
 
 @media (min-width: 550px) {
-  .big-notification-container  {
+  .big-notification-container {
     display: flex;
     justify-content: center;
     padding-top: 1rem;
@@ -52,7 +52,6 @@
     }
   }
 }
-
 
 .show-create-section {
   display: flex !important;

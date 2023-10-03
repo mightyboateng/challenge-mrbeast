@@ -5,11 +5,12 @@ import {
   ThumbUpOutlined,
 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { realtimeDb } from "../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
 import { onValue, ref as rTRef, remove, set } from "firebase/database";
 import { query } from "firebase/firestore";
+import { showNotificationBanner } from "../reduxConfig/slices/userSlice.js";
 
 const VoteFunctionContainer = ({
   flexDirection,
@@ -17,46 +18,74 @@ const VoteFunctionContainer = ({
   challengeId,
 }) => {
   const userDetail = useSelector((state) => state.user.userDetail);
+  const dispatch = useDispatch();
   const [allUpVotes, setAllUpVotes] = useState([]);
   const [allDownVotes, setAllDownVotes] = useState([]);
   const [userVoteType, setUserVoteType] = useState("unvote");
   const [isLoadingVotes, setIsLoadingVotes] = useState(true);
 
-
   // ----- Vote up action -----
   const voteUpAction = async () => {
-    set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
-      voteCreator: userDetail?.uid,
-      voteUsername: userDetail?.username,
-    });
+    if (userDetail) {
+      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
+        voteCreator: userDetail?.uid,
+        voteUsername: userDetail?.username,
+      });
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
   const unVoteUpAction = async () => {
-    remove(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`));
+    if (userDetail) {
+      remove(
+        rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`)
+      );
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
   const updateToVoteUpAction = async () => {
-    remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
-    set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
-      voteCreator: userDetail?.uid,
-      voteUsername: userDetail?.username,
-    });
+    if (userDetail) {
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
+      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
+        voteCreator: userDetail?.uid,
+        voteUsername: userDetail?.username,
+      });
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
 
   // ----- Vote Down Action -----
   const voteDownAction = async () => {
-    set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
-      voteCreator: userDetail?.uid,
-      voteUsername: userDetail?.username,
-    });
+    if (userDetail) {
+      set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
+        voteCreator: userDetail?.uid,
+        voteUsername: userDetail?.username,
+      });
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
   const unVoteDownAction = async () => {
-    remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
+    if (userDetail) {
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
   const updateToVoteDownAction = async () => {
-    remove(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`));
-    set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
-      voteCreator: userDetail?.uid,
-      voteUsername: userDetail?.username,
-    });
+    if (userDetail) {
+      remove(
+        rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`)
+      );
+      set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
+        voteCreator: userDetail?.uid,
+        voteUsername: userDetail?.username,
+      });
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
   };
 
   useEffect(() => {
@@ -96,7 +125,7 @@ const VoteFunctionContainer = ({
 
   return (
     <div
-      className={`vote-container d-flex align-items-center ${flexDirection} ${displayClass}`}
+      className={`vote-container d-flex align-items-center justify-content-start ${flexDirection} ${displayClass}`}
     >
       {isLoadingVotes ? (
         <CircularProgress />

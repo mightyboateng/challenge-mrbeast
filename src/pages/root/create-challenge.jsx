@@ -80,7 +80,7 @@ const CreateChallengePage = () => {
 
                   {userDetail == null ? (
                     <button onClick={() => navigate("/login")}>
-                      Please login to submit a challenge
+                      Login to submit a challenge
                     </button>
                   ) : (
                     <button>Post</button>

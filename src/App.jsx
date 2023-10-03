@@ -31,9 +31,9 @@ function App() {
           <Route path="/create-challenge" element={<CreateChallengePage />} />
           <Route path="/profile/:profileId" element={<ProfilePage />} />
         </Routes>
+      <BigNotificationContainer />
       </BrowserRouter>
 
-      <BigNotificationContainer />
     </div>
   );
 }

@@ -12,21 +12,30 @@ export const userSlice = createSlice({
     // },
     userDetail: null,
     userCreatePost: { postTitle: "", postBody: "" },
+    userNotification: "",
   },
   reducers: {
     loginUser: (state, action) => {
       state.userDetail = action.payload;
     },
-    updatePostTitle:(state,action)=>{
-      state.userCreatePost.postTitle = action.payload
+    updatePostTitle: (state, action) => {
+      state.userCreatePost.postTitle = action.payload;
     },
-    updatePostBody:(state,action)=>{
-      state.userCreatePost.postBody = action.payload
-    }
+    updatePostBody: (state, action) => {
+      state.userCreatePost.postBody = action.payload;
+    },
+    showNotificationBanner: (state, action) => {
+      state.userNotification = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { loginUser,updatePostTitle,updatePostBody } = userSlice.actions;
+export const {
+  loginUser,
+  updatePostTitle,
+  updatePostBody,
+  showNotificationBanner,
+} = userSlice.actions;
 
 export default userSlice.reducer;

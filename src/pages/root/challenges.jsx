@@ -150,49 +150,11 @@ const ChallengesPage = () => {
             </div>
             <h3>Challenges</h3>
           </div>
-          <div
-            className="default-section-body"
-            ref={containerRef}
-          >
+          <div className="default-section-body" ref={containerRef}>
             <div className="load-btn-container">
               <button>Load new challenges</button>
             </div>
             <div className="contents-container challenges-container">
-              {/* <div className="user-feed-container">
-                <div className='user-input'>
-                  <img src={UserImage} alt="user-profile" />
-                  <div className="input-field">
-                    <span>
-                      What do you want to tell mrbeast and his team on his next
-                      video
-                    </span>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* {challenges ? (
-                challenges.map((challenge, index) => (
-                  <PostCard
-                    key={index}
-                    challengeId={challengesId[index]}
-                    title={challenge.challengeTitle}
-                    description={challenge.challengeDescription}
-                    challengeType={challenge.challengeType}
-                    creator={challenge.creatorUsername}
-                    publishedAt={new Timestamp(
-                      challenge.publishedAt.seconds,
-                      challenge.publishedAt.nanoseconds
-                    )
-                      .toDate()
-                      .toDateString()}
-                  />
-                ))
-              ) : (
-                <div>
-                  <CircularProgress />
-                </div>
-              )} */}
-
               {challengesList ? (
                 challengesList.map((challenge, index) => (
                   <PostCard
