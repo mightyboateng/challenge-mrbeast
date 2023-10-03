@@ -4,6 +4,9 @@
   .MuiSvgIcon-root {
     // color: var(--background-color);
   }
+  .MuiSvgIcon-root {
+  font-size: 1.2rem;
+}
 
   .vote-up {
     color: var(--primary-blue);
@@ -12,6 +15,8 @@
     color: var(--primary-red);
   }
 }
+
+
 
 .hide-lg-vote {
   display: none;

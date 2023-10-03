@@ -121,7 +121,7 @@ const VoteFunctionContainer = ({
     });
 
     return () => {};
-  }, [allUpVotes, allDownVotes, userVoteType, challengeId, userDetail?.uid]);
+  }, []);
 
   return (
     <div

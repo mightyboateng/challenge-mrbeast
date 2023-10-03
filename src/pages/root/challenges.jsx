@@ -47,10 +47,6 @@ const ChallengesPage = () => {
       dispatch(loadFirstChallengeList(queryResult.docs));
 
       dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-      console.log(
-        "Last Doc First",
-        queryResult.docs[queryResult.docs.length - 1]
-      );
     };
 
     return () => {

@@ -1135,6 +1135,9 @@ main .content-section {
 .vote-container {
   margin-right: 1.2rem;
 }
+.vote-container .MuiSvgIcon-root {
+  font-size: 1.2rem;
+}
 .vote-container .vote-up {
   color: var(--primary-blue);
 }
