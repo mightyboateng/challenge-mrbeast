@@ -1085,6 +1085,12 @@ main .content-section {
 .sidebar-profile-img span {
   display: none;
 }
+.sidebar-profile-img .user-side-photo {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
 
 .sidebar-options {
   position: absolute;
