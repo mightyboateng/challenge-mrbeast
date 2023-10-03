@@ -15,6 +15,7 @@
   border-radius: 30px;
   width: fit-content;
   align-items: center;
+  color: var(--text-white);
 
   span {
     display: none;
@@ -24,7 +25,7 @@
         width: 25px;
         height: 25px;
     border-radius: 50%;
-    margin-right: 5px;
+    
   }
 }
 
@@ -74,6 +75,7 @@
       white-space: nowrap;
       font-size: 12px;
       font-weight: bold;
+      margin-left: 5px;
     }
   }
 }

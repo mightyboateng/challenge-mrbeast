@@ -1081,6 +1081,7 @@ main .content-section {
   border-radius: 30px;
   width: fit-content;
   align-items: center;
+  color: var(--text-white);
 }
 .sidebar-profile-img span {
   display: none;
@@ -1089,7 +1090,6 @@ main .content-section {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  margin-right: 5px;
 }
 
 .sidebar-options {
@@ -1132,6 +1132,7 @@ main .content-section {
     white-space: nowrap;
     font-size: 12px;
     font-weight: bold;
+    margin-left: 5px;
   }
 }
 .display-options {
