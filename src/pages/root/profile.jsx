@@ -4,7 +4,7 @@ import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
 
 import UserImg from "../../image/icons/iconamoon_profile.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import {
   Timestamp,
@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
+import { updateUserProfileDetail } from "../../reduxConfig/slices/userSlice";
 // import SideProfile from "../SideProfile";
 // import PostCard from "../PostCard";
 
@@ -28,12 +29,14 @@ const ProfilePage = () => {
   const { profileId } = useParams();
 
   const userDetail = useSelector((state) => state.user.userDetail);
+  const userProfileDetail = useSelector((state) => state.user.userProfile);
   const [otherUserDetail, setOtherUserDetail] = useState();
   const [challenges, setChallenges] = useState([]);
   const [challengesId, setChallengesId] = useState([]);
   const [lastDoc, setLastDoc] = useState("");
   const scrollRef = useRef();
   const containerRef = useRef(null);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     ////////////////////////////////
@@ -45,6 +48,7 @@ const ProfilePage = () => {
     const queryUserSnap = async () => {
       const result = await getDocs(queryUser);
       setOtherUserDetail(result.docs[0].data());
+    dispatch(updateUserProfileDetail(result.docs[0].data()));
     };
 
     ////////////////////////////////
@@ -147,12 +151,10 @@ const ProfilePage = () => {
                Profile Picture and banners
         //////////////////////////////////////////////// */}
 
-            {otherUserDetail ? (
+            {userProfileDetail ? (
               <div className="user-image-banner">
                 <div className="image-button">
-                  <img src={otherUserDetail?.photoURL} alt="" />
-
-                  {/* <button>Edit profile</button> */}
+                  <img src={userProfileDetail?.photoURL} alt="" />
                 </div>
               </div>
             ) : (
@@ -164,20 +166,14 @@ const ProfilePage = () => {
             {/* ////////////////////////////////////////////////
                 User Details Here
         //////////////////////////////////////////////// */}
-            {otherUserDetail ? (
+            {userProfileDetail ? (
               <div className="user-details">
-                <h4>{otherUserDetail ? otherUserDetail?.displayName : null}</h4>
-                <h4 className="username">
-                  {otherUserDetail ? otherUserDetail?.username : null}
+                <h4>
+                  {userProfileDetail ? userProfileDetail?.displayName : null}
                 </h4>
-
-                {/* <div className="follow">
-                  {challenges ? (
-                    <p>
-                      <span>{challenges.length} </span>Challenges Posted
-                    </p>
-                  ) : null}
-                </div> */}
+                <h4 className="username">
+                  {userProfileDetail ? userProfileDetail?.username : null}
+                </h4>
               </div>
             ) : null}
 
@@ -214,7 +210,7 @@ const ProfilePage = () => {
               </div>
             </div>
             {lastDoc ? (
-              <div ref={scrollRef}>
+              <div className="d-flex justify-content-center" ref={scrollRef}>
                 <CircularProgress />
               </div>
             ) : null}

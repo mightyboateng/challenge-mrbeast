@@ -1,4 +1,4 @@
-import { Favorite, Headphones } from "@mui/icons-material";
+import { Favorite } from "@mui/icons-material";
 import React from "react";
 import { Link } from "react-router-dom";
 import WhiteLogo from "../image/assets/white-logo.svg";

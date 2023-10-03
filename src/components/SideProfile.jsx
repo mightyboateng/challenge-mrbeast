@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   DarkMode,
   LightMode,
@@ -6,7 +6,7 @@ import {
   Logout,
   Person,
 } from "@mui/icons-material";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
@@ -23,7 +23,6 @@ const SideProfile = () => {
     setThemeData(themeData === "light" ? "dark" : "light");
   };
 
-
   const userOptionAction = () => {
     if (showUserOption === "") {
       setUserOption("display-options");
@@ -34,14 +33,13 @@ const SideProfile = () => {
 
   const handleLogOut = async () => {
     try {
-      signOut(auth);
-      window.location.reload();
-      // route.refresh()
+       signOut(auth).then(()=>{
+        window.location.reload();
+       })
     } catch (error) {
       alert(`Error from logging out ${error}`);
     }
   };
-
 
   return (
     <div className="sidebar-profile">
@@ -54,7 +52,10 @@ const SideProfile = () => {
             <Login /> Login
           </div>
         ) : (
-          <div className="option-item cursor-pointer" onClick={handleLogOut}>
+          <div
+            className="option-item cursor-pointer"
+            onClick={handleLogOut}
+          >
             <Logout /> Logout
           </div>
         )}

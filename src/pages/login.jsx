@@ -89,7 +89,6 @@ const LoginPage = () => {
           navigate("/challenges");
         }
       } else {
-        console.log("From login page currentUser ", currentUser);
         setPageLoading(false);
       }
     });

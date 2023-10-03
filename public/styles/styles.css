@@ -464,6 +464,7 @@ main .content-section {
   justify-content: center;
   align-items: center;
   overflow-y: scroll;
+  color: var(--text-white);
 }
 .login-signup-section .MuiCircularProgress-root {
   width: 20px !important;
@@ -844,9 +845,12 @@ main .content-section {
   background: var(--background-color);
 }
 .loading-component img {
-  width: 90px;
+  width: 70px;
 }
 
+.profile-section {
+  color: var(--text-white);
+}
 .profile-section .user-image-banner {
   background: var(--primary-red);
   width: 100%;

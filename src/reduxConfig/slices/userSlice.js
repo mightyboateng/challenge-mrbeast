@@ -3,29 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    // userDetail: {
-    //   uid: "12334",
-    //   displayName: "Nana Adams",
-    //   emailAddress: "nana@gmail.com",
-    //   photoURL:
-    //     "https://media.licdn.com/dms/image/C4E03AQF2tjggYTtRHQ/profile-displayphoto-shrink_200_200/0/1647454209200?e=1685577600&v=beta&t=TJwUBDogSudhCVUWy5XZY2lxIkZV0yTTRtdH03py9Yo",
-    // },
     userDetail: null,
-    userCreatePost: { postTitle: "", postBody: "" },
     userNotification: "",
+    userProfile: null,
   },
   reducers: {
     loginUser: (state, action) => {
       state.userDetail = action.payload;
     },
-    updatePostTitle: (state, action) => {
-      state.userCreatePost.postTitle = action.payload;
-    },
-    updatePostBody: (state, action) => {
-      state.userCreatePost.postBody = action.payload;
-    },
     showNotificationBanner: (state, action) => {
       state.userNotification = action.payload;
+    },
+    updateUserProfileDetail: (state, action) => {
+      state.userProfile = action.payload;
     },
   },
 });
@@ -36,6 +26,7 @@ export const {
   updatePostTitle,
   updatePostBody,
   showNotificationBanner,
+  updateUserProfileDetail,
 } = userSlice.actions;
 
 export default userSlice.reducer;

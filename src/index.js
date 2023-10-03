@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import {store} from './reduxConfig/store'
 import { ThemeDataProvider } from "./components/ThemeDataContext";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("undergroundMaster"));
 root.render(
   <Provider store={store}>
     <ThemeDataProvider>
