@@ -21,13 +21,10 @@ const SideProfile = () => {
   const [showUserOption, setUserOption] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.stateProvider.theme);
 
   // const [theme, setTheme] = userLocalStorage("theme" ? "dark" : "light");
   // const { theme, setTheme } = useTheme();
-  const switchTheme = () => {
-    dispatch(switchThemeData(theme === "light" ? "dark" : "light"));
-  };
+
   // const route = useRouter();
 
   const userOptionAction = () => {
@@ -74,7 +71,7 @@ const SideProfile = () => {
           </div>
         )}
 
-        <div className="option-item cursor-pointer" onClick={switchTheme}>
+        <div className="option-item cursor-pointer">
           <DarkMode />
           <span>Dark mode</span>
         </div>

@@ -10,14 +10,16 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import BigNotificationContainer from "./components/BigNotificationContainer";
 import { useSelector } from "react-redux";
+import { useThemeData } from "./components/ThemeDataContext";
 
 function App() {
 
-  const theme = useSelector((state) => state.stateProvider.theme);
+  const {themeData } = useThemeData()
 
-  console.log("theme ", theme)
+  console.log("Theme ", themeData)
+
   return (
-    <div className="App" data-theme={theme}>
+    <div className="App" >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
