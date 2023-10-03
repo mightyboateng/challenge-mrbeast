@@ -1,32 +1,32 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import RootLayout from "../../components/RootLayout";
 import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
-import UserImage from "../../image/icons/iconamoon_profile.svg";
 
 import {
-  Timestamp,
   collection,
   getDocs,
   limit,
   orderBy,
   query,
   startAfter,
-  startAt,
 } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadMoreChallengeList,
   loadFirstChallengeList,
+  updateLastDoc,
 } from "../../reduxConfig/slices/challengeSlice";
 import { CircularProgress } from "@mui/material";
 
 const ChallengesPage = () => {
-  const [lastDoc, setLastDoc] = useState("");
   const scrollRef = useRef();
   const containerRef = useRef(null);
   const challengesList = useSelector((state) => state.challenges.challengeList);
+  const challengeLastDoc = useSelector(
+    (state) => state.challenges.challengeLastDoc
+  );
 
   const dispatch = useDispatch();
 
@@ -39,25 +39,24 @@ const ChallengesPage = () => {
       const queryChallenge = query(
         challengeRef,
         orderBy("publishedAt", "desc"),
-
+        // startAfter(challengeLastDoc || 0),
         limit(2)
       );
       const queryResult = await getDocs(queryChallenge);
 
       dispatch(loadFirstChallengeList(queryResult.docs));
 
-      // queryResult.docs.map((doc) => {
-      //   setChallenges((oldValue) => [...oldValue, doc.data()]);
-      //   setChallengesId((oldValue) => [...oldValue, doc.id]);
-      // });
-
-      setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+      dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+      console.log(
+        "Last Doc First",
+        queryResult.docs[queryResult.docs.length - 1]
+      );
     };
 
     return () => {
       queryChallengeSnap();
     };
-  });
+  }, [dispatch]);
 
   // ///////////////////
   //// Load more data
@@ -67,44 +66,14 @@ const ChallengesPage = () => {
     const queryChallenge = query(
       challengeRef,
       orderBy("publishedAt", "desc"),
-      startAfter(lastDoc || 0),
-      limit(2)
+      startAfter(challengeLastDoc || 0),
+      limit(1)
     );
     const queryResult = await getDocs(queryChallenge);
 
     dispatch(loadMoreChallengeList(queryResult.docs));
 
-    // queryResult.docs.map((doc) => {
-    //   // console.log("Result ", doc.data())
-    //   setChallenges((oldValue) => [...oldValue, doc.data()]);
-    //   setChallengesId((oldValue) => [...oldValue, doc.id]);
-    // });
-
-    setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
-  };
-
-  // ///////////////////
-  //// Load new challenges
-  ////////////////////////////////////
-  const queryNewChallengeAction = async () => {
-    const challengeRef = collection(firestoreDb, "challenges");
-    const queryChallenge = query(
-      challengeRef,
-      orderBy("publishedAt", "desc"),
-      startAfter(lastDoc || 0),
-      limit(2)
-    );
-    const queryResult = await getDocs(queryChallenge);
-
-    dispatch(loadMoreChallengeList(queryResult.docs));
-
-    // queryResult.docs.map((doc) => {
-    //   // console.log("Result ", doc.data())
-    //   setChallenges((oldValue) => [...oldValue, doc.data()]);
-    //   setChallengesId((oldValue) => [...oldValue, doc.id]);
-    // });
-
-    setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+    dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
   };
 
   /////////////////////////////////
@@ -150,50 +119,12 @@ const ChallengesPage = () => {
             </div>
             <h3>Challenges</h3>
           </div>
-          <div
-            className="default-section-body"
-            ref={containerRef}
-          >
+          <div className="default-section-body" ref={containerRef}>
             <div className="load-btn-container">
               <button>Load new challenges</button>
             </div>
             <div className="contents-container challenges-container">
-              {/* <div className="user-feed-container">
-                <div className='user-input'>
-                  <img src={UserImage} alt="user-profile" />
-                  <div className="input-field">
-                    <span>
-                      What do you want to tell mrbeast and his team on his next
-                      video
-                    </span>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* {challenges ? (
-                challenges.map((challenge, index) => (
-                  <PostCard
-                    key={index}
-                    challengeId={challengesId[index]}
-                    title={challenge.challengeTitle}
-                    description={challenge.challengeDescription}
-                    challengeType={challenge.challengeType}
-                    creator={challenge.creatorUsername}
-                    publishedAt={new Timestamp(
-                      challenge.publishedAt.seconds,
-                      challenge.publishedAt.nanoseconds
-                    )
-                      .toDate()
-                      .toDateString()}
-                  />
-                ))
-              ) : (
-                <div>
-                  <CircularProgress />
-                </div>
-              )} */}
-
-              {challengesList ? (
+              {challengesList.length !== 0 ? (
                 challengesList.map((challenge, index) => (
                   <PostCard
                     key={index}
@@ -206,7 +137,7 @@ const ChallengesPage = () => {
                   />
                 ))
               ) : (
-                <div>
+                <div className="d-flex justify-content-center">
                   <CircularProgress />
                 </div>
               )}
@@ -214,7 +145,12 @@ const ChallengesPage = () => {
             <button onClick={queryMoreChallengeAction}>
               Show more challenges
             </button>
-            <div ref={scrollRef}>Loading...</div>
+            <div>Loading...</div>
+            {challengeLastDoc ? (
+              <div className="d-flex justify-content-center" ref={scrollRef}>
+                <CircularProgress />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
