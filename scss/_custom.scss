@@ -49,8 +49,12 @@
 
 body {
   margin: 0;
-  overflow: hidden;
   font-family: "Poppins", sans-serif;
+  color: var(--text-white);
+  overflow-y: scroll;
+}
+
+* {
   color: var(--text-white);
 }
 .custom-container {
@@ -118,7 +122,6 @@ button {
   justify-content: start;
 }
 
-
 .text-decoration-none {
   text-decoration: none;
 }
@@ -179,53 +182,21 @@ button {
 
 //---***  Challenge, Create, Mrbeast , and Profile layout content ***---//
 .default-section {
-  .default-section-container {
+  .default-section-nav {
     display: flex;
-    flex-direction: column;
-    .default-section-nav {
-      display: flex;
-      align-items: center;
-      padding: 0.3rem;
-      border-bottom: 0.1rem solid var(--light-grey);
-      
-      color: var(--text-white);
-      h3 {
-        margin: 0;
-      }
-    }
+    align-items: center;
+    padding: 0.3rem;
+    border-bottom: 0.1rem solid var(--light-grey);
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    background-color: var(--background-color);
+    z-index: 40;
 
-    .default-section-body {
-      overflow-y: scroll;
-      height: calc(100vh -  5.4rem);
-    }
-  }
-}
-
-@media (min-width: 391px) {
-  .default-section {
-    .default-section-container {
-      .default-section-body {
-        height: calc(100vh - 6.7rem);
-      }
-    }
-  }
-}
-
-@media (min-width: 501px) {
-  .default-section {
-    .default-section-container {
-      .default-section-body {
-        height: calc(100vh - 2.5rem);
-      }
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  .default-section {
-    .default-section-container {
-      display: flex;
-      width: 100%;
+    color: var(--text-white);
+    h3 {
+      margin: 0;
     }
   }
 }

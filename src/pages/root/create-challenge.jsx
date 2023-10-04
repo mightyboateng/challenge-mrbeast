@@ -4,11 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import { useSelector } from "react-redux";
 import SideProfile from "../../components/SideProfile";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 
 const CreateChallengePage = () => {
@@ -17,7 +13,6 @@ const CreateChallengePage = () => {
 
   const handleChallengeSubmit = async (e) => {
     e.preventDefault();
-
 
     const challengeRef = collection(firestoreDb, "challenges");
     await addDoc(challengeRef, {
@@ -30,6 +25,7 @@ const CreateChallengePage = () => {
     }).then(()=>{
 
       navigate("/challenges");
+      // window.open('/challenges')
     })
 
   };
@@ -37,7 +33,6 @@ const CreateChallengePage = () => {
   return (
     <RootLayout title="Submit a challenge">
       <div className="default-section create-section">
-        <div className="default-section-container">
           <div className="default-section-nav">
             <div className="profile-show-sm">
               <SideProfile />
@@ -48,9 +43,7 @@ const CreateChallengePage = () => {
             <div className="create-card">
               <div className="card-body">
                 <form onSubmit={handleChallengeSubmit}>
-                  <select
-                    name="channel"
-                  >
+                  <select name="channel">
                     <option value="mb/charity">mb/charity</option>
                     <option value="mb/gaming">mb/gaming</option>
                     <option value="mb/reacts">mb/reacts</option>
@@ -80,7 +73,6 @@ const CreateChallengePage = () => {
             </div>
           </div>
         </div>
-      </div>
     </RootLayout>
   );
 };

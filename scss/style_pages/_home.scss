@@ -1,16 +1,15 @@
 main {
   background: var(--background-color);
 
-
   .sidebar-bottom-navbar {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
     background: var(--background-color);
     padding: 0.5rem;
     overflow-y: scroll;
-
+    z-index: 2;
     border-top: 1px solid var(--light-grey);
 
     .netx-logo {
@@ -36,7 +35,7 @@ main {
       color: var(--icon-color-white);
 
       span {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
       }
     }
     .sidebar-item:hover {
@@ -48,15 +47,27 @@ main {
     }
   }
 
+  .hide-sm {
+    display: none;
+  }
+
   .content-section {
     background: var(--background-color);
+    // height: 100vh;
     overflow-y: scroll;
-    height: calc(100vh - 40px);
-    overflow: hidden;
+    // height: calc(100vh - 40px);
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    // padding-bottom: 4rem;
+    // padding-top: 3rem;
+    h1 {
+      margin: 0;
+    }
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 350px) {
   main {
     .sidebar-bottom-navbar {
       .sidebar-item {
@@ -72,6 +83,7 @@ main {
   main {
     .home-section {
       display: flex;
+      height: 100vh;
     }
 
     .sidebar-bottom-navbar {
@@ -135,10 +147,16 @@ main {
       }
     }
 
+    .hide-lg {
+      display: none;
+    }
+
     .content-section {
       flex: 1;
-      height: 100vh;
+      // height: 100vh;
+      // overflow-y: scroll;
       width: 100%;
+      // padding-bottom: 0;
     }
   }
 }

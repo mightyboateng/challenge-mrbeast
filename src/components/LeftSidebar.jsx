@@ -1,5 +1,6 @@
 import {
   Assessment,
+  Coffee,
   Create,
   LaptopMac,
   Person,
@@ -11,13 +12,13 @@ import IconLogo from "../image/assets/blue-icon-logo.svg";
 
 import SideProfile from "./SideProfile";
 
-function LeftSidebar() {
+function LeftSidebar({hideSM}) {
   const { pathname } = useLocation();
 
   const userDetails = useSelector((state) => state.user.userDetail);
 
   return (
-    <div className="sidebar-bottom-navbar">
+    <div className={`sidebar-bottom-navbar ${hideSM}`}>
       <div>
         <Link to="/challenges">
           <img className="netx-logo" src={IconLogo} alt="logo" />
@@ -35,12 +36,13 @@ function LeftSidebar() {
           </Link>
 
           <Link
-            to="https://www.buymeacoffee.com/mightymakersdev"
-            target="_blank"
-            className={`sidebar-item `}
+            to="/create-challenge"
+            className={`sidebar-item ${
+              pathname === "/create-challenge" ? "active-sidebar-item" : null
+            }`}
           >
-            <LaptopMac />
-            <span>Buy me macbook</span>
+            <Create />
+            <span>Create</span>
           </Link>
 
           <Link
@@ -51,16 +53,6 @@ function LeftSidebar() {
           >
             <YouTube className="bg-fill-danger" />
             <span>Mr Beast</span>
-          </Link>
-
-          <Link
-            to="/create-challenge"
-            className={`sidebar-item ${
-              pathname === "/create-challenge" ? "active-sidebar-item" : null
-            }`}
-          >
-            <Create />
-            <span>Create</span>
           </Link>
 
           {userDetails ? (
@@ -77,6 +69,14 @@ function LeftSidebar() {
             </Link>
           ) : null}
 
+          <Link
+            to="https://www.buymeacoffee.com/mightymakersdev"
+            target="_blank"
+            className={`sidebar-item `}
+          >
+            <Coffee />
+            <span>Buy me Coffee</span>
+          </Link>
         </div>
       </div>
 

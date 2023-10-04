@@ -37,6 +37,14 @@ const RootLayout = ({ children, title, description }) => {
     });
   });
 
+  // const handleScrollController = (e) => {
+  //   const element = e.target;
+  //   const isAtBottom =
+  //     element.scrollHeight - element.scrollTop === element.clientHeight;
+
+  //   // console.log("Scrolling from the mother ", isAtBottom);
+  // };
+
   return pageLoading ? (
     <LoadingComponent />
   ) : (
@@ -51,13 +59,15 @@ const RootLayout = ({ children, title, description }) => {
         {/* //////////////////////////////////////////
                     Sidebar -- Bottom Navbar
         /////////////////////////////////////////////// */}
-        {/* <LeftSidebar /> */}
         <LeftSidebar />
 
         {/* //////////////////////////////////////////
                    Content base section
         /////////////////////////////////////////////// */}
-        <div className="content-section">{children}</div>
+        <div className="content-section" >
+          {children}
+          {/* <LeftSidebar hideSM="hide-lg" /> */}
+        </div>
       </div>
     </main>
   );

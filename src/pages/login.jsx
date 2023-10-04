@@ -1,4 +1,3 @@
-
 import { Close } from "@mui/icons-material";
 
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import GoogleLogo from "../image/assets/google.png";
 import {
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
 } from "firebase/auth";
 import {
   auth,
@@ -20,6 +20,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { loginUser } from "../reduxConfig/slices/userSlice";
 import LoadingComponent from "../components/Loading";
 import { CircularProgress } from "@mui/material";
+import { isMobile } from "react-device-detect";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -29,20 +30,33 @@ const LoginPage = () => {
   const [btnIsLoading, setBtnIsLoading] = useState(false);
 
   const googleSignIn = () => {
-    setBtnIsLoading(true)
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const user = result.user;
+    setBtnIsLoading(true);
+    if (isMobile) {
+      signInWithRedirect(auth, googleProvider)
+        .then((result) => {
+          const user = result.user;
 
-        getUserDetailFromFirestore(user.uid);
+          getUserDetailFromFirestore(user.uid);
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          setBtnIsLoading(false);
+          alert("Error here ", error);
+        });
+    } else {
+      signInWithPopup(auth, googleProvider)
+        .then((result) => {
+          const user = result.user;
 
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        setBtnIsLoading(false);
-        const errorMessage = error.message;
-        alert("Error ", errorMessage);
-      });
+          getUserDetailFromFirestore(user.uid);
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          setBtnIsLoading(false);
+          const errorMessage = error;
+          alert("Error ", errorMessage);
+        });
+    }
   };
 
   async function getUserDetailFromFirestore(userUid) {

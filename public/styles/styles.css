@@ -46,8 +46,12 @@
 
 body {
   margin: 0;
-  overflow: hidden;
   font-family: "Poppins", sans-serif;
+  color: var(--text-white);
+  overflow-y: scroll;
+}
+
+* {
   color: var(--text-white);
 }
 
@@ -174,52 +178,35 @@ button {
   height: 20px !important;
 }
 
-.default-section .default-section-container {
-  display: flex;
-  flex-direction: column;
-}
-.default-section .default-section-container .default-section-nav {
+.default-section .default-section-nav {
   display: flex;
   align-items: center;
   padding: 0.3rem;
   border-bottom: 0.1rem solid var(--light-grey);
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  background-color: var(--background-color);
+  z-index: 40;
   color: var(--text-white);
 }
-.default-section .default-section-container .default-section-nav h3 {
+.default-section .default-section-nav h3 {
   margin: 0;
 }
-.default-section .default-section-container .default-section-body {
-  overflow-y: scroll;
-  height: calc(100vh - 5.4rem);
-}
 
-@media (min-width: 391px) {
-  .default-section .default-section-container .default-section-body {
-    height: calc(100vh - 6.7rem);
-  }
-}
-@media (min-width: 501px) {
-  .default-section .default-section-container .default-section-body {
-    height: calc(100vh - 2.5rem);
-  }
-}
-@media (min-width: 992px) {
-  .default-section .default-section-container {
-    display: flex;
-    width: 100%;
-  }
-}
 main {
   background: var(--background-color);
 }
 main .sidebar-bottom-navbar {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   background: var(--background-color);
   padding: 0.5rem;
   overflow-y: scroll;
+  z-index: 2;
   border-top: 1px solid var(--light-grey);
 }
 main .sidebar-bottom-navbar .netx-logo {
@@ -242,7 +229,7 @@ main .sidebar-bottom-navbar .sidebar-item {
   color: var(--icon-color-white);
 }
 main .sidebar-bottom-navbar .sidebar-item span {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 main .sidebar-bottom-navbar .sidebar-item:hover {
   background: none;
@@ -250,14 +237,20 @@ main .sidebar-bottom-navbar .sidebar-item:hover {
 main .sidebar-bottom-navbar .active-sidebar-item {
   border-bottom: 5px solid var(--grey-active-sidebar-item);
 }
+main .hide-sm {
+  display: none;
+}
 main .content-section {
   background: var(--background-color);
   overflow-y: scroll;
-  height: calc(100vh - 40px);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+main .content-section h1 {
+  margin: 0;
 }
 
-@media (max-width: 390px) {
+@media (max-width: 350px) {
   main .sidebar-bottom-navbar .sidebar-item span {
     display: none;
   }
@@ -265,6 +258,7 @@ main .content-section {
 @media (min-width: 501px) {
   main .home-section {
     display: flex;
+    height: 100vh;
   }
   main .sidebar-bottom-navbar {
     padding: 1rem;
@@ -315,9 +309,11 @@ main .content-section {
   main .sidebar-bottom-navbar .active-sidebar-item span {
     font-weight: 700;
   }
+  main .hide-lg {
+    display: none;
+  }
   main .content-section {
     flex: 1;
-    height: 100vh;
     width: 100%;
   }
 }
@@ -793,6 +789,7 @@ main .content-section {
 
 .feed-section {
   position: relative;
+  overflow-y: scroll;
 }
 .feed-section .user-feed-container {
   margin: 1rem 0;
@@ -829,7 +826,16 @@ main .content-section {
   border-radius: 50px;
   border: 1px solid var(--primary-red);
 }
+.feed-section .contents-container {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
 
+@media (min-width: 501px) {
+  .feed-section .contents-container {
+    padding-bottom: 0;
+  }
+}
 .show-load-new-button-challenge {
   top: 50px !important;
   z-index: 1 !important;
