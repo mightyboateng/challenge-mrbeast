@@ -1,4 +1,8 @@
 .create-section {
+  position: relative;
+  overflow-y: scroll;
+  padding-top: 3rem;
+    padding-bottom: 4rem;
   .create-card {
     background: var(--popup-background-color);
     padding: 1rem;
@@ -84,5 +88,11 @@
     /* margin: 4rem; */
     display: block;
     width: fit-content;
+  }
+}
+
+@media (min-width: 501px) {
+  .create-section{
+     padding-bottom: 0;
   }
 }

@@ -1,5 +1,8 @@
 main {
   background: var(--background-color);
+  .home-section {
+    height: 100vh;
+  }
 
   .sidebar-bottom-navbar {
     position: fixed;
@@ -47,20 +50,14 @@ main {
     }
   }
 
-  .hide-sm {
-    display: none;
-  }
 
   .content-section {
     background: var(--background-color);
-    // height: 100vh;
-    overflow-y: scroll;
-    // height: calc(100vh - 40px);
-    // overflow: hidden;
+    width: 100%;
+
+    height: inherit;
     display: flex;
     flex-direction: column;
-    // padding-bottom: 4rem;
-    // padding-top: 3rem;
     h1 {
       margin: 0;
     }
@@ -83,7 +80,6 @@ main {
   main {
     .home-section {
       display: flex;
-      height: 100vh;
     }
 
     .sidebar-bottom-navbar {
@@ -147,16 +143,11 @@ main {
       }
     }
 
-    .hide-lg {
-      display: none;
-    }
+
 
     .content-section {
       flex: 1;
-      // height: 100vh;
-      // overflow-y: scroll;
       width: 100%;
-      // padding-bottom: 0;
     }
   }
 }

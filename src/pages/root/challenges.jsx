@@ -33,26 +33,26 @@ const ChallengesPage = () => {
   /////////////////////////////////
   ///// Initial Data loading
   /////////////////////////
-  // useEffect(() => {
-  //   const queryChallengeSnap = async () => {
-  //     const challengeRef = collection(firestoreDb, "challenges");
-  //     const queryChallenge = query(
-  //       challengeRef,
-  //       orderBy("publishedAt", "desc"),
-  //       // startAfter(challengeLastDoc || 0),
-  //       limit(2)
-  //     );
-  //     const queryResult = await getDocs(queryChallenge);
+  useEffect(() => {
+    const queryChallengeSnap = async () => {
+      const challengeRef = collection(firestoreDb, "challenges");
+      const queryChallenge = query(
+        challengeRef,
+        orderBy("publishedAt", "desc"),
+        // startAfter(challengeLastDoc || 0),
+        limit(4)
+      );
+      const queryResult = await getDocs(queryChallenge);
 
-  //     dispatch(loadFirstChallengeList(queryResult.docs));
+      dispatch(loadFirstChallengeList(queryResult.docs));
 
-  //     dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-  //   };
+      dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+    };
 
-  //   return () => {
-  //     queryChallengeSnap();
-  //   };
-  // }, [dispatch]);
+    return () => {
+      queryChallengeSnap();
+    };
+  }, [dispatch]);
 
   // ///////////////////
   //// Load more data
@@ -111,16 +111,20 @@ const ChallengesPage = () => {
     const isAtBottom =
       element.scrollHeight - element.scrollTop === element.clientHeight;
 
-    console.log("Scrolling from the Feed ", isAtBottom);
+    // Define a flag to check if the function has already been triggered
+    let isFunctionTriggered = false;
+
+    if (isAtBottom && !isFunctionTriggered) {
+      isFunctionTriggered = true; // Set the flag to true to prevent multiple executions
+      queryMoreChallengeAction();
+    } else {
+      isFunctionTriggered = false; // Reset the flag if not at the bottom
+    }
   };
 
   return (
     <RootLayout title="Challenges">
-      <div
-        className="default-section feed-section"
-        ref={containerRef}
-        onScroll={handleScrollController}
-      >
+      <div className="feed-section" onScroll={handleScrollController}>
         <div className="default-section-nav">
           <div className="profile-show-sm">
             <SideProfile />
@@ -131,78 +135,24 @@ const ChallengesPage = () => {
           <button>Load new challenges</button>
         </div>
 
-        <div
-          className="contents-container challenges-container"
-          onScroll={handleScrollController}
-        >
-          {/* {challengesList.length !== 0 ? (
-                challengesList.map((challenge, index) => (
-                  <PostCard
-                    key={index}
-                    challengeId={challenge.id}
-                    title={challenge.data().challengeTitle}
-                    description={challenge.data().challengeDescription}
-                    challengeType={challenge.data().challengeType}
-                    creator={challenge.data().creatorUsername}
-                    publishedAt={challenge.data().publishedAt}
-                  />
-                ))
-              ) : (
-                <div className="d-flex justify-content-center">
-                  <CircularProgress />
-                </div>
-              )} */}
-          <h1>First Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>Mr Beast</h1>
-          <h1>End of Roll</h1>
+        <div className="contents-container challenges-container">
+          {challengesList.length !== 0 ? (
+            challengesList.map((challenge, index) => (
+              <PostCard
+                key={index}
+                challengeId={challenge.id}
+                title={challenge.data().challengeTitle}
+                description={challenge.data().challengeDescription}
+                challengeType={challenge.data().challengeType}
+                creator={challenge.data().creatorUsername}
+                publishedAt={challenge.data().publishedAt}
+              />
+            ))
+          ) : (
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
+            </div>
+          )}
         </div>
 
         {challengeLastDoc ? (

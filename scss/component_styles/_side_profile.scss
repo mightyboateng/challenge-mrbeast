@@ -22,10 +22,9 @@
   }
 
   .user-side-photo {
-        width: 25px;
-        height: 25px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    
   }
 }
 
@@ -59,10 +58,10 @@
   }
 
   .sidebar-options {
-      left: -1px;
+    left: -1px;
     top: -121px;
     z-index: 3;
-}
+  }
 }
 
 @media (min-width: 1281px) {
@@ -81,5 +80,5 @@
 }
 
 .display-options {
-       display: block;
+  display: block;
 }

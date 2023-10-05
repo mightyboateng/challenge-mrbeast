@@ -18,7 +18,7 @@ function LeftSidebar({hideSM}) {
   const userDetails = useSelector((state) => state.user.userDetail);
 
   return (
-    <div className={`sidebar-bottom-navbar ${hideSM}`}>
+    <div className="sidebar-bottom-navbar">
       <div>
         <Link to="/challenges">
           <img className="netx-logo" src={IconLogo} alt="logo" />

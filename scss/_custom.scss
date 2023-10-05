@@ -52,11 +52,10 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--text-white);
   overflow-y: scroll;
+  height: 100%;
 }
 
-* {
-  color: var(--text-white);
-}
+
 .custom-container {
   max-width: 1000px;
   margin: auto;
@@ -181,7 +180,7 @@ button {
 }
 
 //---***  Challenge, Create, Mrbeast , and Profile layout content ***---//
-.default-section {
+
   .default-section-nav {
     display: flex;
     align-items: center;
@@ -199,6 +198,6 @@ button {
       margin: 0;
     }
   }
-}
+
 
 // --- End of  Challenge, Create , and Profile layout content

@@ -31,11 +31,21 @@ const LandingPage = () => {
             <button className="btn-login">Login</button>
           </Link>
         </div>
+
+        <div className="landing-body-footer">
+          <div className="hr-line"></div>
+          <span className="d-flex justify-content-center">
+            built with <Favorite /> from{"    "}
+            <Link to="https://www.youtube.com/@mightydevs" target="blank">
+              mighty devs
+            </Link>
+          </span>
+        </div>
       </div>
 
       {/* //////////////////////////////////////////////////
       /////////////////////////////////////////////////// */}
-      <div className="landing-body-footer">
+      {/* <div className="landing-body-footer">
         <div className="hr-line"></div>
         <span className="d-flex justify-content-center">
           built with <Favorite /> from{"    "}
@@ -43,7 +53,7 @@ const LandingPage = () => {
             mighty devs
           </Link>
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };

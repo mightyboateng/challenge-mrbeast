@@ -49,10 +49,7 @@ body {
   font-family: "Poppins", sans-serif;
   color: var(--text-white);
   overflow-y: scroll;
-}
-
-* {
-  color: var(--text-white);
+  height: 100%;
 }
 
 .custom-container {
@@ -178,7 +175,7 @@ button {
   height: 20px !important;
 }
 
-.default-section .default-section-nav {
+.default-section-nav {
   display: flex;
   align-items: center;
   padding: 0.3rem;
@@ -191,12 +188,15 @@ button {
   z-index: 40;
   color: var(--text-white);
 }
-.default-section .default-section-nav h3 {
+.default-section-nav h3 {
   margin: 0;
 }
 
 main {
   background: var(--background-color);
+}
+main .home-section {
+  height: 100vh;
 }
 main .sidebar-bottom-navbar {
   position: fixed;
@@ -237,12 +237,10 @@ main .sidebar-bottom-navbar .sidebar-item:hover {
 main .sidebar-bottom-navbar .active-sidebar-item {
   border-bottom: 5px solid var(--grey-active-sidebar-item);
 }
-main .hide-sm {
-  display: none;
-}
 main .content-section {
   background: var(--background-color);
-  overflow-y: scroll;
+  width: 100%;
+  height: inherit;
   display: flex;
   flex-direction: column;
 }
@@ -258,7 +256,6 @@ main .content-section h1 {
 @media (min-width: 501px) {
   main .home-section {
     display: flex;
-    height: 100vh;
   }
   main .sidebar-bottom-navbar {
     padding: 1rem;
@@ -308,9 +305,6 @@ main .content-section h1 {
   }
   main .sidebar-bottom-navbar .active-sidebar-item span {
     font-weight: 700;
-  }
-  main .hide-lg {
-    display: none;
   }
   main .content-section {
     flex: 1;
@@ -585,6 +579,12 @@ main .content-section h1 {
     height: 85%;
   }
 }
+.create-section {
+  position: relative;
+  overflow-y: scroll;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
 .create-section .create-card {
   background: var(--popup-background-color);
   padding: 1rem;
@@ -662,6 +662,11 @@ main .content-section h1 {
   width: fit-content;
 }
 
+@media (min-width: 501px) {
+  .create-section {
+    padding-bottom: 0;
+  }
+}
 .challenge-view-section .view-post-nav .MuiSvgIcon-root {
   color: var(--icon-color-white);
   font-size: 1rem;
@@ -855,6 +860,10 @@ main .content-section h1 {
 }
 
 .profile-section {
+  position: relative;
+  overflow-y: scroll;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
   color: var(--text-white);
 }
 .profile-section .user-image-banner {
@@ -915,6 +924,9 @@ main .content-section h1 {
 }
 
 @media (min-width: 501px) {
+  .profile-section {
+    padding-bottom: 0;
+  }
   .profile-section .profile-container {
     height: 100vh;
   }

@@ -25,7 +25,7 @@ const ProfilePage = () => {
   const [lastDoc, setLastDoc] = useState("");
   const scrollRef = useRef();
   const containerRef = useRef(null);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     ////////////////////////////////
@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
     const queryUserSnap = async () => {
       const result = await getDocs(queryUser);
-    dispatch(updateUserProfileDetail(result.docs[0].data()));
+      dispatch(updateUserProfileDetail(result.docs[0].data()));
     };
 
     ////////////////////////////////
@@ -88,121 +88,95 @@ const ProfilePage = () => {
     setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
   };
 
-  /////////////////////////////////
-  ///// Load more challenges onScrolling - Function
-  /////////////////////////
-  const handleScroll = () => {
-    if (containerRef.current && scrollRef.current) {
-      const container = containerRef.current;
-      const loader = scrollRef.current;
+  const handleScrollController = (e) => {
+    const element = e.target;
+    const isAtBottom =
+      element.scrollHeight - element.scrollTop === element.clientHeight;
 
-      const isAtBottom =
-        container.scrollTop + container.clientHeight + 15 >= loader.offsetTop;
-
-      if (isAtBottom) {
-        console.log("We hit the last item");
-        // queryMoreChallengeAction();
-        loadMoreChallenge();
-      }
+    // console.log("Scrolling from the Profile ", isAtBottom);
+    if (isAtBottom) {
+      loadMoreChallenge();
     }
   };
-  /////////////////////////////////
-  ///// Load more challenges onScrolling - useEffect action
-  /////////////////////////
-  useEffect(() => {
-    // Attach the scroll event listener to your specific div
-    if (containerRef.current) {
-      containerRef.current.addEventListener("scroll", handleScroll);
-    }
-
-    // Clean up the event listener on component unmount
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  });
 
   return (
     <RootLayout title={profileId}>
-      <div className="default-section profile-section">
-        <div className="default-section-container">
-          <div className="default-section-nav">
-            <div className="profile-show-sm">
-              {/* <SideProfile /> */}
-              <SideProfile />
-            </div>
-            <h3>Profile</h3>
+      <div className=" profile-section" onScroll={handleScrollController}>
+        <div className="default-section-nav">
+          <div className="profile-show-sm">
+            {/* <SideProfile /> */}
+            <SideProfile />
           </div>
-          <div className="default-section-body" ref={containerRef}>
-            {/* ////////////////////////////////////////////////
+          <h3>Profile</h3>
+        </div>
+        <div className="default-section-body">
+          {/* ////////////////////////////////////////////////
                Profile Picture and banners
         //////////////////////////////////////////////// */}
 
-            {userProfileDetail ? (
-              <div className="user-image-banner">
-                <div className="image-button">
-                  <img src={userProfileDetail?.photoURL} alt="" />
-                </div>
-              </div>
-            ) : (
-              <div className="d-flex justify-content-center">
-                <CircularProgress />
-              </div>
-            )}
-
-            {/* ////////////////////////////////////////////////
-                User Details Here
-        //////////////////////////////////////////////// */}
-            {userProfileDetail ? (
-              <div className="user-details">
-                <h4>
-                  {userProfileDetail ? userProfileDetail?.displayName : null}
-                </h4>
-                <h4 className="username">
-                  {userProfileDetail ? userProfileDetail?.username : null}
-                </h4>
-              </div>
-            ) : null}
-
-            {/* ////////////////////////////////////////////////
-                User Post & Groups & Review
-        //////////////////////////////////////////////// */}
-            <div className="post-group-container">
-              <div className="post-group-body">
-                <div>
-                  {challenges ? (
-                    challenges.length > 0 ? (
-                      challenges.map((challenge, index) => (
-                        <PostCard
-                          key={index}
-                          challengeId={challengesId[index]}
-                          title={challenge.challengeTitle}
-                          description={challenge.challengeDescription}
-                          challengeType={challenge.challengeType}
-                          creator={challenge.creatorUsername}
-                          publishedAt={challenge.publishedAt}
-                        />
-                      ))
-                    ) : (
-                      <div>
-                        <CircularProgress />
-                      </div>
-                    )
-                  ) : (
-                    <div>
-                      <h1>User has not challenge created yet</h1>
-                    </div>
-                  )}
-                </div>
+          {userProfileDetail ? (
+            <div className="user-image-banner">
+              <div className="image-button">
+                <img src={userProfileDetail?.photoURL} alt="" />
               </div>
             </div>
-            {lastDoc ? (
-              <div className="d-flex justify-content-center" ref={scrollRef}>
-                <CircularProgress />
+          ) : (
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
+            </div>
+          )}
+
+          {/* ////////////////////////////////////////////////
+                User Details Here
+        //////////////////////////////////////////////// */}
+          {userProfileDetail ? (
+            <div className="user-details">
+              <h4>
+                {userProfileDetail ? userProfileDetail?.displayName : null}
+              </h4>
+              <h4 className="username">
+                {userProfileDetail ? userProfileDetail?.username : null}
+              </h4>
+            </div>
+          ) : null}
+
+          {/* ////////////////////////////////////////////////
+                User Post & Groups & Review
+        //////////////////////////////////////////////// */}
+          <div className="post-group-container">
+            <div className="post-group-body">
+              <div>
+                {challenges ? (
+                  challenges.length > 0 ? (
+                    challenges.map((challenge, index) => (
+                      <PostCard
+                        key={index}
+                        challengeId={challengesId[index]}
+                        title={challenge.challengeTitle}
+                        description={challenge.challengeDescription}
+                        challengeType={challenge.challengeType}
+                        creator={challenge.creatorUsername}
+                        publishedAt={challenge.publishedAt}
+                      />
+                    ))
+                  ) : (
+                    <div>
+                      <CircularProgress />
+                    </div>
+                  )
+                ) : (
+                  <div>
+                    <h1>User has not challenge created yet</h1>
+                  </div>
+                )}
               </div>
-            ) : null}
+            </div>
           </div>
+          {lastDoc ? (
+            <div className="d-flex justify-content-center">
+              <CircularProgress />
+            </div>
+          ) : null}
         </div>
       </div>
     </RootLayout>
