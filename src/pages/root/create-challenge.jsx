@@ -23,8 +23,9 @@ const CreateChallengePage = () => {
       creatorUsername: userDetail.username,
       publishedAt: serverTimestamp(),
     }).then(() => {
-      navigate("/challenges");
+      // navigate("/challenges");
       // window.open('/challenges')
+      window.location.href = "/challenges";
     });
   };
 

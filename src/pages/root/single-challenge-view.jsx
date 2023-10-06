@@ -48,7 +48,7 @@ const SingleChallengeView = () => {
       <div className="default-section challenge-view-section">
         <div className="default-section-container">
           <div className="default-section-nav view-post-nav">
-            <ArrowBack onClick={() => navigate(-1)} />
+            <ArrowBack onClick={() => navigate(-1)} className="mr-1 " />
 
             <h3>Challenge details</h3>
           </div>
@@ -86,12 +86,12 @@ const SingleChallengeView = () => {
                         </Link>
                       </p>
                       <span>
-                        {
-                          new Timestamp(
-                            challengeDetail.data().publishedAt.seconds,
-                            challengeDetail.data().publishedAt.nanoseconds
-                          ).toDate().toDateString()
-                        }
+                        {new Timestamp(
+                          challengeDetail.data().publishedAt.seconds,
+                          challengeDetail.data().publishedAt.nanoseconds
+                        )
+                          .toDate()
+                          .toDateString()}
                       </span>
                     </div>
                   </div>
@@ -109,10 +109,10 @@ const SingleChallengeView = () => {
                     <Comment />
                     <span>22 Comments</span>
                   </div> */}
-                    <div className="post-footer-item">
+                    {/* <div className="post-footer-item">
                       <Share />
                       <span>Share</span>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

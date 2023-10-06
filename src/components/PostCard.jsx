@@ -92,11 +92,11 @@ const PostCard = ({
             challengeId={challengeId}
           />
 
-          <div className="post-footer-item">
+          {/* <div className="post-footer-item">
             <Share />
             <span>Share</span>
-            {/* {totalVotes.totalVotes} */}
-          </div>
+            {totalVotes.totalVotes}
+          </div> */}
         </div>
       </div>
     </div>
