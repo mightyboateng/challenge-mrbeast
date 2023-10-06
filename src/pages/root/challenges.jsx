@@ -150,7 +150,7 @@ const ChallengesPage = () => {
         </div> */}
 
         <div className="contents-container challenges-container">
-          {challengesList.length !== 0 ? (
+          {challengesList ? (
             challengesList.map((challenge, index) => {
               if (index === challengesList.length - 1)
                 return (
@@ -189,6 +189,7 @@ const ChallengesPage = () => {
 
         {challengeLastDoc ? (
           <div className="d-flex justify-content-center">
+          <h1>helo</h1>
             <CircularProgress />
           </div>
         ) : null}
