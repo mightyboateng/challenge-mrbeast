@@ -74,8 +74,8 @@ function LeftSidebar({hideSM}) {
             target="_blank"
             className={`sidebar-item `}
           >
-            <Coffee />
-            <span>Buy me Coffee</span>
+            <LaptopMac />
+            <span>Buy me MacBook</span>
           </Link>
         </div>
       </div>

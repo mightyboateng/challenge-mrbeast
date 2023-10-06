@@ -1,6 +1,8 @@
 .feed-section {
   position: relative;
   overflow-y: scroll;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
   .user-feed-container {
     margin: 1rem 0;
     padding: 1rem;
@@ -28,14 +30,14 @@
   }
 
   .load-btn-container {
+    // margin-top: -40px;
+    // margin-top: 5px;
+    left: 0;
+    position: fixed;
+    right: 0;
     display: flex;
     justify-content: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    padding: 0.2rem 0;
-    z-index: -3;
+    // z-index: -20;
 
     button {
       padding: 0.5rem;
@@ -43,17 +45,10 @@
       border: 1px solid var(--primary-red);
     }
   }
-
-  .contents-container {
-    padding-top: 3rem;
-    padding-bottom: 4rem;
-  }
 }
 @media (min-width: 501px) {
   .feed-section {
-    .contents-container {
-      padding-bottom: 0;
-    }
+    padding-bottom: 0;
   }
 }
 

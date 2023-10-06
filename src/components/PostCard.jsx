@@ -13,8 +13,8 @@ const PostCard = ({
   challengeType,
   creator,
   publishedAt,
+  cardRef,
 }) => {
-
   // Convert Firestore timestamp to JavaScript Date object
   const postDate = new Date(
     publishedAt.seconds * 1000 + publishedAt.nanoseconds / 1000000
@@ -57,7 +57,7 @@ const PostCard = ({
   }
 
   return (
-    <div className="post-card">
+    <div className="post-card" ref={cardRef}>
       <VoteFunctionContainer
         flexDirection="flex-column"
         displayClass="hide-lg-vote"

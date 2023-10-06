@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import RootLayout from "../../components/RootLayout";
 import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
@@ -16,16 +16,28 @@ import {
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
 import { updateUserProfileDetail } from "../../reduxConfig/slices/userSlice";
+import {
+  loadFirstProfileChallengeList,
+  loadMoreProfileChallengeList,
+  updateProfileLastDoc,
+} from "../../reduxConfig/slices/challengeSlice";
+import { useIntersection } from "@mantine/hooks";
 
 const ProfilePage = () => {
   const { profileId } = useParams();
   const userProfileDetail = useSelector((state) => state.user.userProfile);
-  const [challenges, setChallenges] = useState([]);
-  const [challengesId, setChallengesId] = useState([]);
-  const [lastDoc, setLastDoc] = useState("");
-  const scrollRef = useRef();
-  const containerRef = useRef(null);
+  const profileChallengeList = useSelector(
+    (state) => state.challenges.profileChallengeList
+  );
+  const profileChallengeLastDoc = useSelector(
+    (state) => state.challenges.profileChallengeLastDoc
+  );
+  const lastPost = useRef(null);
   const dispatch = useDispatch();
+  const { ref, entry } = useIntersection({
+    root: lastPost.current,
+    threshold: 1,
+  });
 
   useEffect(() => {
     ////////////////////////////////
@@ -36,7 +48,9 @@ const ProfilePage = () => {
 
     const queryUserSnap = async () => {
       const result = await getDocs(queryUser);
-      dispatch(updateUserProfileDetail(result.docs[0].data()));
+      if (result.docs.length !== 0) {
+        dispatch(updateUserProfileDetail(result.docs[0]?.data()));
+      }
     };
 
     ////////////////////////////////
@@ -53,55 +67,63 @@ const ProfilePage = () => {
       );
       const queryResult = await getDocs(queryChallenge);
 
-      queryResult.docs.map((doc) => {
-        // console.log("Result ", doc.data());
-        setChallenges((oldValue) => [...oldValue, doc.data()]);
-        setChallengesId((oldValue) => [...oldValue, doc.id]);
-      });
+      dispatch(loadFirstProfileChallengeList(queryResult.docs));
 
-      setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
+      dispatch(
+        updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1])
+      );
     };
 
     return () => {
       queryUserSnap();
-      loadUserChallenge();
+      // if (userProfileDetail?.username !== profileId) {
+        loadUserChallenge();
+      // }
     };
-  }, [profileId]);
+  }, [dispatch, profileId]);
 
-  const loadMoreChallenge = async () => {
-    const challengeRef = collection(firestoreDb, "challenges");
-    const queryChallenge = query(
-      challengeRef,
-      where("creatorUsername", "==", profileId),
-      orderBy("publishedAt", "desc"),
-      startAfter(lastDoc || 0),
-      limit(2)
-    );
-    const queryResult = await getDocs(queryChallenge);
+  // useEffect(() => {
+  //   if (userProfileDetail?.username !== profileId) {
 
-    queryResult.docs.map((doc) => {
-      // console.log("Result ", doc.data());
-      setChallenges((oldValue) => [...oldValue, doc.data()]);
-      setChallengesId((oldValue) => [...oldValue, doc.id]);
-    });
+  //   }
+  //   return () => {
+      
+  //   };
+  // }, []);
 
-    setLastDoc(queryResult.docs[queryResult.docs.length - 1]);
-  };
+  /////////////////////////////////
+  ///// Load more challenges onScrolling - Function
+  /////////////////////////
+  useEffect(() => {
+    const loadMoreChallenge = async () => {
+      const challengeRef = collection(firestoreDb, "challenges");
+      const queryChallenge = query(
+        challengeRef,
+        where("creatorUsername", "==", profileId),
+        orderBy("publishedAt", "desc"),
+        startAfter(profileChallengeLastDoc || 0),
+        limit(2)
+      );
+      const queryResult = await getDocs(queryChallenge);
 
-  const handleScrollController = (e) => {
-    const element = e.target;
-    const isAtBottom =
-      element.scrollHeight - element.scrollTop === element.clientHeight;
+      dispatch(loadMoreProfileChallengeList(queryResult.docs));
 
-    // console.log("Scrolling from the Profile ", isAtBottom);
-    if (isAtBottom) {
-      loadMoreChallenge();
+      dispatch(
+        updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1])
+      );
+    };
+
+    if (entry?.isIntersecting) {
+      loadMoreChallenge()
     }
-  };
+
+    return () => {};
+  }, [dispatch, entry?.isIntersecting, profileChallengeLastDoc, profileId]);
+
 
   return (
     <RootLayout title={profileId}>
-      <div className=" profile-section" onScroll={handleScrollController}>
+      <div className=" profile-section">
         <div className="default-section-nav">
           <div className="profile-show-sm">
             {/* <SideProfile /> */}
@@ -146,21 +168,37 @@ const ProfilePage = () => {
           <div className="post-group-container">
             <div className="post-group-body">
               <div>
-                {challenges ? (
-                  challenges.length > 0 ? (
-                    challenges.map((challenge, index) => (
-                      <PostCard
-                        key={index}
-                        challengeId={challengesId[index]}
-                        title={challenge.challengeTitle}
-                        description={challenge.challengeDescription}
-                        challengeType={challenge.challengeType}
-                        creator={challenge.creatorUsername}
-                        publishedAt={challenge.publishedAt}
-                      />
-                    ))
+                {profileChallengeList ? (
+                  profileChallengeList.length > 0 ? (
+                    profileChallengeList.map((challenge, index) => {
+                      if (index === profileChallengeList.length - 1)
+                        return (
+                          <PostCard
+                            cardRef={ref}
+                            key={index}
+                            challengeId={challenge.id}
+                            title={challenge.data().challengeTitle}
+                            description={challenge.data().challengeDescription}
+                            challengeType={challenge.data().challengeType}
+                            creator={challenge.data().creatorUsername}
+                            publishedAt={challenge.data().publishedAt}
+                          />
+                        );
+
+                      return (
+                        <PostCard
+                          key={index}
+                          challengeId={challenge.id}
+                          title={challenge.data().challengeTitle}
+                          description={challenge.data().challengeDescription}
+                          challengeType={challenge.data().challengeType}
+                          creator={challenge.data().creatorUsername}
+                          publishedAt={challenge.data().publishedAt}
+                        />
+                      );
+                    })
                   ) : (
-                    <div>
+                    <div className="d-flex justify-content-center">
                       <CircularProgress />
                     </div>
                   )
@@ -172,7 +210,7 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          {lastDoc ? (
+          {profileChallengeLastDoc ? (
             <div className="d-flex justify-content-center">
               <CircularProgress />
             </div>

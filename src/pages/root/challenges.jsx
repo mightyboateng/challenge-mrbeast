@@ -5,6 +5,7 @@ import SideProfile from "../../components/SideProfile";
 
 import {
   collection,
+  endBefore,
   getDocs,
   limit,
   orderBy,
@@ -17,18 +18,27 @@ import {
   loadMoreChallengeList,
   loadFirstChallengeList,
   updateLastDoc,
+  updateFirstDoc,
+  loadNewChallengeList,
 } from "../../reduxConfig/slices/challengeSlice";
 import { CircularProgress } from "@mui/material";
+import { useIntersection } from "@mantine/hooks";
 
 const ChallengesPage = () => {
-  const scrollRef = useRef();
-  const containerRef = useRef(null);
+  const lastPost = useRef(null);
   const challengesList = useSelector((state) => state.challenges.challengeList);
   const challengeLastDoc = useSelector(
     (state) => state.challenges.challengeLastDoc
   );
+  const challengeFirstDoc = useSelector(
+    (state) => state.challenges.challengeFirstDoc
+  );
 
   const dispatch = useDispatch();
+  const { ref, entry } = useIntersection({
+    root: lastPost.current,
+    threshold: 1,
+  });
 
   /////////////////////////////////
   ///// Initial Data loading
@@ -39,14 +49,15 @@ const ChallengesPage = () => {
       const queryChallenge = query(
         challengeRef,
         orderBy("publishedAt", "desc"),
-        // startAfter(challengeLastDoc || 0),
-        limit(4)
+        limit(2)
       );
       const queryResult = await getDocs(queryChallenge);
 
       dispatch(loadFirstChallengeList(queryResult.docs));
 
       dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+
+      dispatch(updateFirstDoc(queryResult.docs[0]));
     };
 
     return () => {
@@ -54,77 +65,55 @@ const ChallengesPage = () => {
     };
   }, [dispatch]);
 
-  // ///////////////////
-  //// Load more data
-  ////////////////////////////////////
-  const queryMoreChallengeAction = async () => {
+  /////////////////////////////////
+  ///// Load more challenges onScrolling - Function
+  /////////////////////////
+  useEffect(() => {
+    const queryMoreChallengeAction = async () => {
+      const challengeRef = collection(firestoreDb, "challenges");
+      const queryChallenge = query(
+        challengeRef,
+        orderBy("publishedAt", "desc"),
+        startAfter(challengeLastDoc || 0),
+        limit(1)
+      );
+      const queryResult = await getDocs(queryChallenge);
+
+      dispatch(loadMoreChallengeList(queryResult.docs));
+
+      dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+    };
+    if (entry?.isIntersecting) {
+      queryMoreChallengeAction();
+    }
+
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.isIntersecting]);
+
+  /////////////////////////////////
+  ///// Load New challenges - Function
+  /////////////////////////
+  const queryNewChallengeAction = async () => {
     const challengeRef = collection(firestoreDb, "challenges");
     const queryChallenge = query(
       challengeRef,
       orderBy("publishedAt", "desc"),
-      startAfter(challengeLastDoc || 0),
+      endBefore(challengeFirstDoc || 0),
       limit(1)
     );
     const queryResult = await getDocs(queryChallenge);
 
-    dispatch(loadMoreChallengeList(queryResult.docs));
+    dispatch(loadNewChallengeList(queryResult.docs));
 
-    dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-  };
+    dispatch(updateFirstDoc(queryResult.docs[0]));
 
-  /////////////////////////////////
-  ///// Load more challenges onScrolling - Function
-  /////////////////////////
-  const handleScroll = () => {
-    if (containerRef.current && scrollRef.current) {
-      const container = containerRef.current;
-      const loader = scrollRef.current;
-
-      const isAtBottom =
-        container.scrollTop + container.clientHeight + 15 >= loader.offsetTop;
-
-      if (isAtBottom) {
-        console.log("we are in");
-        // queryMoreChallengeAction();
-      }
-    }
-  };
-  /////////////////////////////////
-  ///// Load more challenges onScrolling - useEffect action
-  /////////////////////////
-  useEffect(() => {
-    // Attach the scroll event listener to your specific div
-    if (containerRef.current) {
-      containerRef.current.addEventListener("scroll", handleScroll);
-    }
-
-    // Clean up the event listener on component unmount
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  });
-
-  const handleScrollController = (e) => {
-    const element = e.target;
-    const isAtBottom =
-      element.scrollHeight - element.scrollTop === element.clientHeight;
-
-    // Define a flag to check if the function has already been triggered
-    let isFunctionTriggered = false;
-
-    if (isAtBottom && !isFunctionTriggered) {
-      isFunctionTriggered = true; // Set the flag to true to prevent multiple executions
-      queryMoreChallengeAction();
-    } else {
-      isFunctionTriggered = false; // Reset the flag if not at the bottom
-    }
+    // dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
   };
 
   return (
     <RootLayout title="Challenges">
-      <div className="feed-section" onScroll={handleScrollController}>
+      <div className="feed-section">
         <div className="default-section-nav">
           <div className="profile-show-sm">
             <SideProfile />
@@ -132,22 +121,38 @@ const ChallengesPage = () => {
           <h3>Challenges</h3>
         </div>
         <div className="load-btn-container">
-          <button>Load new challenges</button>
+          <button onClick={queryNewChallengeAction}>Load new challenges</button>
         </div>
 
         <div className="contents-container challenges-container">
           {challengesList.length !== 0 ? (
-            challengesList.map((challenge, index) => (
-              <PostCard
-                key={index}
-                challengeId={challenge.id}
-                title={challenge.data().challengeTitle}
-                description={challenge.data().challengeDescription}
-                challengeType={challenge.data().challengeType}
-                creator={challenge.data().creatorUsername}
-                publishedAt={challenge.data().publishedAt}
-              />
-            ))
+            challengesList.map((challenge, index) => {
+              if (index === challengesList.length - 1)
+                return (
+                  <PostCard
+                    cardRef={ref}
+                    key={index}
+                    challengeId={challenge.id}
+                    title={challenge.data().challengeTitle}
+                    description={challenge.data().challengeDescription}
+                    challengeType={challenge.data().challengeType}
+                    creator={challenge.data().creatorUsername}
+                    publishedAt={challenge.data().publishedAt}
+                  />
+                );
+
+              return (
+                <PostCard
+                  key={index}
+                  challengeId={challenge.id}
+                  title={challenge.data().challengeTitle}
+                  description={challenge.data().challengeDescription}
+                  challengeType={challenge.data().challengeType}
+                  creator={challenge.data().creatorUsername}
+                  publishedAt={challenge.data().publishedAt}
+                />
+              );
+            })
           ) : (
             <div className="d-flex justify-content-center">
               <CircularProgress />
@@ -156,7 +161,7 @@ const ChallengesPage = () => {
         </div>
 
         {challengeLastDoc ? (
-          <div className="d-flex justify-content-center" ref={scrollRef}>
+          <div className="d-flex justify-content-center">
             <CircularProgress />
           </div>
         ) : null}

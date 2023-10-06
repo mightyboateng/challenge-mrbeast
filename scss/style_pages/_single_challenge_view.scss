@@ -1,5 +1,8 @@
 .challenge-view-section {
-
+  position: relative;
+  overflow-y: scroll;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
   .view-post-nav {
     .MuiSvgIcon-root {
       color: var(--icon-color-white);
@@ -18,7 +21,6 @@
 
     .vote-container {
       margin-right: 1.2rem;
-
 
       .vote-up {
         color: var(--primary-blue);
@@ -100,5 +102,11 @@
         font-size: 0.2rem;
       }
     }
+  }
+}
+
+@media (min-width: 501px) {
+  .challenge-view-section {
+    padding-bottom: 0;
   }
 }

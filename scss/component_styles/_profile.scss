@@ -1,8 +1,8 @@
 .profile-section {
-    position: relative;
+  position: relative;
   overflow-y: scroll;
   padding-top: 2rem;
-    padding-bottom: 4rem;
+  padding-bottom: 4rem;
   .user-image-banner {
     background: var(--primary-red);
     width: 100%;
@@ -32,7 +32,7 @@
     margin-top: 3rem;
     padding: 0 0.5rem;
 
-    color:var(--text-white);
+    color: var(--text-white);
     h4 {
       margin: 0;
     }
@@ -70,7 +70,7 @@
 
 @media (min-width: 501px) {
   .profile-section {
-     padding-bottom: 0;
+    padding-bottom: 0;
     .profile-container {
       height: 100vh;
     }

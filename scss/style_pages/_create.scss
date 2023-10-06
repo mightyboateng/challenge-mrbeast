@@ -2,7 +2,7 @@
   position: relative;
   overflow-y: scroll;
   padding-top: 3rem;
-    padding-bottom: 4rem;
+  padding-bottom: 4rem;
   .create-card {
     background: var(--popup-background-color);
     padding: 1rem;
@@ -92,7 +92,7 @@
 }
 
 @media (min-width: 501px) {
-  .create-section{
-     padding-bottom: 0;
+  .create-section {
+    padding-bottom: 0;
   }
 }

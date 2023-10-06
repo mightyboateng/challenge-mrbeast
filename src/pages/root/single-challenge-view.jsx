@@ -37,10 +37,8 @@ const SingleChallengeView = () => {
     return () => {
       if (challengeList.length === 0) {
         getChallengeDetailFromDatabase();
-        console.log("Data action run");
       } else {
         getChallengeDetailFromRedux();
-        console.log("Redux action run");
       }
     };
   }, [challengeId, challengeList]);
