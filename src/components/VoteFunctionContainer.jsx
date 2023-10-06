@@ -95,6 +95,7 @@ const VoteFunctionContainer = ({
 
     onValue(voteUpQuery, (snapshot) => {
       setAllUpVotes([]);
+      setUserVoteType("unvote");
       if (snapshot.val() !== null) {
         Object.values(snapshot.val()).map((voteUp) => {
           setAllUpVotes((oldValue) => [...oldValue, voteUp]);
@@ -108,6 +109,7 @@ const VoteFunctionContainer = ({
     });
     onValue(voteDownQuery, (snapshot) => {
       setAllDownVotes([]);
+      setUserVoteType("unvote");
       if (snapshot.val() !== null) {
         Object.values(snapshot.val()).map((voteDown) => {
           setAllDownVotes((oldValue) => [...oldValue, voteDown]);
