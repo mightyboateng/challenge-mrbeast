@@ -1,8 +1,6 @@
 import {
-  Share,
 } from "@mui/icons-material";
 import React from "react";
-import UserImg from "../image/icons/iconamoon_profile.svg";
 import VoteFunctionContainer from "./VoteFunctionContainer";
 import { Link } from "react-router-dom";
 
@@ -12,6 +10,7 @@ const PostCard = ({
   description,
   challengeType,
   creator,
+  creatorPhoto,
   publishedAt,
   cardRef,
 }) => {
@@ -65,7 +64,7 @@ const PostCard = ({
       />
       <div className="">
         <div className="post-nav">
-          <img src={UserImg} alt="user-img" />
+          <img className="post-ower-img" src={creatorPhoto} alt="user-img" />
           <div className="user-detail">
             <p>
               {challengeType} <span>Posted by</span>

@@ -1,6 +1,6 @@
 import RootLayout from "../../components/RootLayout";
 import { Public } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useSelector } from "react-redux";
 import SideProfile from "../../components/SideProfile";
@@ -21,6 +21,7 @@ const CreateChallengePage = () => {
       challengeType: e.target.channel.value,
       creator: userDetail.uid,
       creatorUsername: userDetail.username,
+      creatorPhoto:userDetail.photoURL,
       publishedAt: serverTimestamp(),
     }).then(() => {
       // navigate("/challenges");

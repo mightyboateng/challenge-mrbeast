@@ -31,7 +31,7 @@ const MrBeastPage = () => {
             <div className="user-details">
               <div className="follow">
                 <p>
-                  <span>184M </span>Subscribers
+                  <span>191M </span>Subscribers (and counting)
                 </p>
                 <p>
                   <span>870 </span>Videos

@@ -14,10 +14,12 @@
     align-items: flex-start;
     margin-bottom: 0.7rem;
 
-    img {
-      border-radius: 30px;
-      border: 1px solid var(--light-grey);
-    }
+
+    .post-ower-img {
+        border-radius: 30px;
+        border: 1px solid var(--light-grey);
+        width: 30px;
+      }
 
     .user-detail {
       margin-left: 0.5rem;

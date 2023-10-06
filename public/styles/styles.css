@@ -1006,9 +1006,10 @@ main .content-section h1 {
   align-items: flex-start;
   margin-bottom: 0.7rem;
 }
-.post-card .post-nav img {
+.post-card .post-nav .post-ower-img {
   border-radius: 30px;
   border: 1px solid var(--light-grey);
+  width: 30px;
 }
 .post-card .post-nav .user-detail {
   margin-left: 0.5rem;

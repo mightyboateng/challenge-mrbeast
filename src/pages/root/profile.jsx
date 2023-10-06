@@ -63,7 +63,7 @@ const ProfilePage = () => {
         challengeRef,
         where("creatorUsername", "==", profileId),
         orderBy("publishedAt", "desc"),
-        limit(3)
+        limit(5)
       );
       const queryResult = await getDocs(queryChallenge);
 
@@ -93,7 +93,7 @@ const ProfilePage = () => {
         where("creatorUsername", "==", profileId),
         orderBy("publishedAt", "desc"),
         startAfter(profileChallengeLastDoc || 0),
-        limit(2)
+        limit(3)
       );
       const queryResult = await getDocs(queryChallenge);
 
@@ -173,6 +173,7 @@ const ProfilePage = () => {
                             challengeType={challenge.data().challengeType}
                             creator={challenge.data().creatorUsername}
                             publishedAt={challenge.data().publishedAt}
+                            creatorPhoto={challenge.data().creatorPhoto}
                           />
                         );
 
@@ -185,6 +186,7 @@ const ProfilePage = () => {
                           challengeType={challenge.data().challengeType}
                           creator={challenge.data().creatorUsername}
                           publishedAt={challenge.data().publishedAt}
+                          creatorPhoto={challenge.data().creatorPhoto}
                         />
                       );
                     })

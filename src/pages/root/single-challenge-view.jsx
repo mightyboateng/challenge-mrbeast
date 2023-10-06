@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import RootLayout from "../../components/RootLayout";
-import { ArrowBack, Share} from "@mui/icons-material";
+import { ArrowBack} from "@mui/icons-material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import VoteFunctionContainer from "../../components/VoteFunctionContainer";
-import UserImage from "../../image/icons/iconamoon_profile.svg";
 import { useSelector } from "react-redux";
 import { Timestamp, doc, getDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
@@ -69,7 +68,7 @@ const SingleChallengeView = () => {
                   <div className="post-nav">
                     <img
                       className="post-ower-img"
-                      src={UserImage}
+                      src={challengeDetail.data().creatorPhoto}
                       alt="user-img"
                     />
                     <div className="user-detail">

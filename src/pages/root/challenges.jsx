@@ -23,7 +23,7 @@ import {
 } from "../../reduxConfig/slices/challengeSlice";
 import { CircularProgress } from "@mui/material";
 import { useIntersection } from "@mantine/hooks";
-import { People, PeopleAltOutlined, Person, Public, Web } from "@mui/icons-material";
+import {PeopleAltOutlined, Person, Public } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const ChallengesPage = () => {
@@ -52,7 +52,7 @@ const ChallengesPage = () => {
       const queryChallenge = query(
         challengeRef,
         orderBy("publishedAt", "desc"),
-        limit(2)
+        limit(5)
       );
       const queryResult = await getDocs(queryChallenge);
 
@@ -78,7 +78,7 @@ const ChallengesPage = () => {
         challengeRef,
         orderBy("publishedAt", "desc"),
         startAfter(challengeLastDoc || 0),
-        limit(1)
+        limit(5)
       );
       const queryResult = await getDocs(queryChallenge);
 
@@ -97,21 +97,21 @@ const ChallengesPage = () => {
   /////////////////////////////////
   ///// Load New challenges - Function
   /////////////////////////
-  const queryNewChallengeAction = async () => {
-    const challengeRef = collection(firestoreDb, "challenges");
-    const queryChallenge = query(
-      challengeRef,
-      orderBy("publishedAt", "desc"),
-      endBefore(challengeFirstDoc || 0),
-      limit(1)
-    );
-    const queryResult = await getDocs(queryChallenge);
+  // const queryNewChallengeAction = async () => {
+  //   const challengeRef = collection(firestoreDb, "challenges");
+  //   const queryChallenge = query(
+  //     challengeRef,
+  //     orderBy("publishedAt", "desc"),
+  //     endBefore(challengeFirstDoc || 0),
+  //     limit(1)
+  //   );
+  //   const queryResult = await getDocs(queryChallenge);
 
-    dispatch(loadNewChallengeList(queryResult.docs));
+  //   dispatch(loadNewChallengeList(queryResult.docs));
 
-    dispatch(updateFirstDoc(queryResult.docs[0]));
+  //   dispatch(updateFirstDoc(queryResult.docs[0]));
 
-  };
+  // };
 
   return (
     <RootLayout title="Challenges">
@@ -145,9 +145,9 @@ const ChallengesPage = () => {
             <button>Post</button>
           </div>
         </div>
-        <div className="load-btn-container">
+        {/* <div className="load-btn-container">
           <button onClick={queryNewChallengeAction}>Load new challenges</button>
-        </div>
+        </div> */}
 
         <div className="contents-container challenges-container">
           {challengesList.length !== 0 ? (
@@ -163,6 +163,7 @@ const ChallengesPage = () => {
                     challengeType={challenge.data().challengeType}
                     creator={challenge.data().creatorUsername}
                     publishedAt={challenge.data().publishedAt}
+                    creatorPhoto={challenge.data().creatorPhoto}
                   />
                 );
 
@@ -175,6 +176,7 @@ const ChallengesPage = () => {
                   challengeType={challenge.data().challengeType}
                   creator={challenge.data().creatorUsername}
                   publishedAt={challenge.data().publishedAt}
+                  creatorPhoto={challenge.data().creatorPhoto}
                 />
               );
             })
