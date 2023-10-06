@@ -66,7 +66,7 @@ const ChallengesPage = () => {
     return () => {
       queryChallengeSnap();
     };
-  }, [dispatch]);
+  }, []);
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function
@@ -150,7 +150,7 @@ const ChallengesPage = () => {
         </div> */}
 
         <div className="contents-container challenges-container">
-          {challengesList ? (
+          {challengesList.length !== 0 ? (
             challengesList.map((challenge, index) => {
               if (index === challengesList.length - 1)
                 return (
