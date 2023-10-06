@@ -76,20 +76,11 @@ const ProfilePage = () => {
 
     return () => {
       queryUserSnap();
-      // if (userProfileDetail?.username !== profileId) {
         loadUserChallenge();
-      // }
     };
-  }, [dispatch, profileId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profileId]);
 
-  // useEffect(() => {
-  //   if (userProfileDetail?.username !== profileId) {
-
-  //   }
-  //   return () => {
-      
-  //   };
-  // }, []);
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function

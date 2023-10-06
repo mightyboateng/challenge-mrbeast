@@ -23,9 +23,12 @@ import {
 } from "../../reduxConfig/slices/challengeSlice";
 import { CircularProgress } from "@mui/material";
 import { useIntersection } from "@mantine/hooks";
+import { People, PeopleAltOutlined, Person, Public, Web } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const ChallengesPage = () => {
   const lastPost = useRef(null);
+  const userDetail = useSelector((state) => state.user.userDetail);
   const challengesList = useSelector((state) => state.challenges.challengeList);
   const challengeLastDoc = useSelector(
     (state) => state.challenges.challengeLastDoc
@@ -108,7 +111,6 @@ const ChallengesPage = () => {
 
     dispatch(updateFirstDoc(queryResult.docs[0]));
 
-    // dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
   };
 
   return (
@@ -119,6 +121,29 @@ const ChallengesPage = () => {
             <SideProfile />
           </div>
           <h3>Challenges</h3>
+        </div>
+        <div className="create-from-feed">
+          <div className="profile-textfield">
+            {userDetail !== null ? (
+              <Link to={`/profile/${userDetail.username}`}>
+                <img
+                  className="user-side-photo"
+                  src={userDetail.photoURL}
+                  alt={userDetail.username}
+                />
+              </Link>
+            ) : (
+              <Person className="user-side-photo" />
+            )}
+            <Link to="/create-challenge" className="text-field">
+              <div className="text-field-text">What do you have in mind?</div>
+            </Link>
+          </div>
+          <div className="icon-button">
+            <PeopleAltOutlined className="mx-1"/>
+            <Public className="mx-1"/>
+            <button>Post</button>
+          </div>
         </div>
         <div className="load-btn-container">
           <button onClick={queryNewChallengeAction}>Load new challenges</button>

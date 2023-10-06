@@ -828,7 +828,55 @@ main .content-section h1 {
   border-radius: 5px;
   border: 0.1rem solid var(--light-grey);
 }
+.feed-section .create-from-feed {
+  padding: 0.2rem 0.5rem;
+  border-bottom: 0.1rem solid var(--light-grey);
+}
+.feed-section .create-from-feed .MuiSvgIcon-root {
+  color: var(--text-white);
+}
+.feed-section .create-from-feed .profile-textfield {
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 20px;
+}
+.feed-section .create-from-feed .profile-textfield .user-side-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: none;
+}
+.feed-section .create-from-feed .profile-textfield .text-field {
+  text-decoration: none;
+  flex: 1;
+  border-radius: 5px;
+  padding: 1.2rem 1rem;
+  border: 0.1rem solid var(--light-grey);
+  color: var(--grey);
+}
+.feed-section .create-from-feed .icon-button {
+  display: flex;
+  justify-content: end;
+  padding-bottom: 0.5rem;
+  align-items: center;
+}
+.feed-section .create-from-feed .icon-button .mx-1 {
+  margin: 0 0.5rem;
+  color: var(--grey);
+}
+.feed-section .create-from-feed button {
+  background: var(--grey);
+  color: white;
+  border: none;
+  border-radius: 36px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  margin-left: 1rem;
+}
 .feed-section .load-btn-container {
+  margin-top: 5px;
+  z-index: -20;
   left: 0;
   position: fixed;
   right: 0;
@@ -844,6 +892,9 @@ main .content-section h1 {
 @media (min-width: 501px) {
   .feed-section {
     padding-bottom: 0;
+  }
+  .feed-section .create-from-feed .profile-textfield .user-side-photo {
+    display: inline;
   }
 }
 .show-load-new-button-challenge {
