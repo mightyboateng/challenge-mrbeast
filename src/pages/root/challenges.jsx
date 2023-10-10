@@ -65,8 +65,9 @@ const ChallengesPage = () => {
 
     return () => {
       queryChallengeSnap();
+      console.log("yes")
     };
-  }, []);
+  });
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function
