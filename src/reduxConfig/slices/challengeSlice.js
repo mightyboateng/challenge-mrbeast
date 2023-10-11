@@ -14,8 +14,8 @@ export const challengeSlice = createSlice({
   },
   reducers: {
     loadFirstChallengeList: (state, action) => {
-      console.log("Run")
       if (state.challengeList.length === 0) {
+        console.log("Run");
         state.challengeList = [...state.challengeList, ...action.payload];
       }
     },
@@ -23,9 +23,15 @@ export const challengeSlice = createSlice({
       state.challengeList = [...state.challengeList, ...action.payload];
     },
     loadNewChallengeList: (state, action) => {
-      state.challengeList = [ ...action.payload, ...state.challengeList];
+      state.challengeList = [...action.payload, ...state.challengeList];
     },
     updateLastDoc: (state, action) => {
+      if (state.challengeLastDoc === null) {
+        console.log("updated");
+        state.challengeLastDoc = action.payload;
+      }
+    },
+    updateLoadingLastDoc: (state, action) => {
       state.challengeLastDoc = action.payload;
     },
     updateFirstDoc: (state, action) => {
@@ -58,6 +64,7 @@ export const {
   loadNewChallengeList,
   updateLastDoc,
   updateFirstDoc,
+  updateLoadingLastDoc,
   loadFirstProfileChallengeList,
   updateProfileLastDoc,
   loadMoreProfileChallengeList,

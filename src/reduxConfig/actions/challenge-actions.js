@@ -13,6 +13,7 @@ import {
   loadMoreChallengeList,
   updateFirstDoc,
   updateLastDoc,
+  updateLoadingLastDoc,
 } from "../slices/challengeSlice";
 import { firestoreDb } from "../../firebase/firebase-config";
 
@@ -36,7 +37,7 @@ export const loadChallenges = async (dispatch) => {
 
   dispatch(updateFirstDoc(queryResult.docs[0]));
 
-  console.log("Done");
+  // console.log("Done");
 };
 
 /////////////////////////////////
@@ -55,7 +56,8 @@ export const loadMoreChallengeAction = async (dispatch, challengeLastDoc) => {
 
   dispatch(loadMoreChallengeList(queryResult.docs));
 
-  dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+  dispatch(updateLoadingLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+  
 };
 
 /////////////////////////////////

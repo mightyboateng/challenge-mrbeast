@@ -29,6 +29,8 @@ const ChallengesPage = () => {
   /////////////////////////
   useEffect(() => {
     loadChallenges(dispatch);
+    
+
   }, [dispatch]);
 
   /////////////////////////////////
