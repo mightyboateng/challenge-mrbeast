@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import RootLayout from "../../components/RootLayout";
-import { ArrowBack} from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import VoteFunctionContainer from "../../components/VoteFunctionContainer";
 import { useSelector } from "react-redux";
 import { Timestamp, doc, getDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
+import { getChallengeDetail } from "../../reduxConfig/challenge-actions";
 
 const SingleChallengeView = () => {
   const challengeList = useSelector((state) => state.challenges.challengeList);
@@ -15,31 +16,17 @@ const SingleChallengeView = () => {
   const { challengeId } = useParams();
   const navigate = useNavigate();
 
-
   useEffect(() => {
-    const getChallengeDetailFromRedux = () => {
-      const result = challengeList.find(
-        (challenge) => challenge.id === challengeId
+
+    const getResult = async () => {
+      const result = await getChallengeDetail(
+        challengeList,
+        challengeId
       );
       setChallengeDetail(result);
     };
 
-    const getChallengeDetailFromDatabase = async () => {
-      const docRef = doc(firestoreDb, "challenges", challengeId); // Replace with your collection name
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setChallengeDetail(docSnap);
-      }
-    };
-
-    return () => {
-      if (challengeList.length === 0) {
-        getChallengeDetailFromDatabase();
-      } else {
-        getChallengeDetailFromRedux();
-      }
-    };
+    getResult();
   }, [challengeId, challengeList]);
 
   return (
