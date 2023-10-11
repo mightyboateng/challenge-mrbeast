@@ -14,6 +14,7 @@ export const challengeSlice = createSlice({
   },
   reducers: {
     loadFirstChallengeList: (state, action) => {
+      console.log("Run")
       if (state.challengeList.length === 0) {
         state.challengeList = [...state.challengeList, ...action.payload];
       }

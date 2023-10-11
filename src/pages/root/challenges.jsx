@@ -23,8 +23,9 @@ import {
 } from "../../reduxConfig/slices/challengeSlice";
 import { CircularProgress } from "@mui/material";
 import { useIntersection } from "@mantine/hooks";
-import {PeopleAltOutlined, Person, Public } from "@mui/icons-material";
+import { PeopleAltOutlined, Person, Public } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import { LoadChallenges } from "../../reduxConfig/challenge-actions";
 
 const ChallengesPage = () => {
   const lastPost = useRef(null);
@@ -47,27 +48,10 @@ const ChallengesPage = () => {
   ///// Initial Data loading
   /////////////////////////
   useEffect(() => {
-    const queryChallengeSnap = async () => {
-      const challengeRef = collection(firestoreDb, "challenges");
-      const queryChallenge = query(
-        challengeRef,
-        orderBy("publishedAt", "desc"),
-        limit(5)
-      );
-      const queryResult = await getDocs(queryChallenge);
 
-      dispatch(loadFirstChallengeList(queryResult.docs));
+    LoadChallenges(dispatch)
+  },[dispatch]);
 
-      dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-
-      dispatch(updateFirstDoc(queryResult.docs[0]));
-    };
-
-    return () => {
-      queryChallengeSnap();
-      console.log("yes")
-    };
-  });
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function
@@ -141,8 +125,8 @@ const ChallengesPage = () => {
             </Link>
           </div>
           <div className="icon-button">
-            <PeopleAltOutlined className="mx-1"/>
-            <Public className="mx-1"/>
+            <PeopleAltOutlined className="mx-1" />
+            <Public className="mx-1" />
             <button>Post</button>
           </div>
         </div>
@@ -183,6 +167,7 @@ const ChallengesPage = () => {
             })
           ) : (
             <div className="d-flex justify-content-center">
+            <h1>Start</h1>
               <CircularProgress />
             </div>
           )}
@@ -190,7 +175,7 @@ const ChallengesPage = () => {
 
         {challengeLastDoc ? (
           <div className="d-flex justify-content-center">
-          <h1>helo</h1>
+            <h1>helo</h1>
             <CircularProgress />
           </div>
         ) : null}
