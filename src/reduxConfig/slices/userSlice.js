@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     userDetail: null,
     userNotification: "",
     userProfile: null,
+    otherProfile: null,
   },
   reducers: {
     loginUser: (state, action) => {
@@ -14,8 +15,8 @@ export const userSlice = createSlice({
     showNotificationBanner: (state, action) => {
       state.userNotification = action.payload;
     },
-    updateUserProfileDetail: (state, action) => {
-      state.userProfile = action.payload;
+    updateOtherProfileDetail: (state, action) => {
+      state.otherProfile = action.payload;
     },
   },
 });
@@ -26,7 +27,7 @@ export const {
   updatePostTitle,
   updatePostBody,
   showNotificationBanner,
-  updateUserProfileDetail,
+  updateOtherProfileDetail,
 } = userSlice.actions;
 
 export default userSlice.reducer;

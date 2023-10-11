@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { Timestamp, doc, getDoc } from "firebase/firestore";
 import { firestoreDb } from "../../firebase/firebase-config";
 import { CircularProgress } from "@mui/material";
-import { getChallengeDetail } from "../../reduxConfig/challenge-actions";
+import { getChallengeDetail } from "../../reduxConfig/actions/challenge-actions";
 
 const SingleChallengeView = () => {
   const challengeList = useSelector((state) => state.challenges.challengeList);
@@ -17,12 +17,8 @@ const SingleChallengeView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const getResult = async () => {
-      const result = await getChallengeDetail(
-        challengeList,
-        challengeId
-      );
+      const result = await getChallengeDetail(challengeList, challengeId);
       setChallengeDetail(result);
     };
 

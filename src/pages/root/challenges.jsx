@@ -2,30 +2,13 @@ import React, { useEffect, useRef } from "react";
 import RootLayout from "../../components/RootLayout";
 import PostCard from "../../components/PostCard";
 import SideProfile from "../../components/SideProfile";
-
-import {
-  collection,
-  endBefore,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAfter,
-} from "firebase/firestore";
-import { firestoreDb } from "../../firebase/firebase-config";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  loadMoreChallengeList,
-  loadFirstChallengeList,
-  updateLastDoc,
-  updateFirstDoc,
-  loadNewChallengeList,
-} from "../../reduxConfig/slices/challengeSlice";
+
 import { CircularProgress } from "@mui/material";
 import { useIntersection } from "@mantine/hooks";
 import { PeopleAltOutlined, Person, Public } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { LoadChallenges } from "../../reduxConfig/challenge-actions";
+import { loadChallenges, loadMoreChallengeAction } from "../../reduxConfig/actions/challenge-actions";
 
 const ChallengesPage = () => {
   const lastPost = useRef(null);
@@ -33,9 +16,6 @@ const ChallengesPage = () => {
   const challengesList = useSelector((state) => state.challenges.challengeList);
   const challengeLastDoc = useSelector(
     (state) => state.challenges.challengeLastDoc
-  );
-  const challengeFirstDoc = useSelector(
-    (state) => state.challenges.challengeFirstDoc
   );
 
   const dispatch = useDispatch();
@@ -48,55 +28,22 @@ const ChallengesPage = () => {
   ///// Initial Data loading
   /////////////////////////
   useEffect(() => {
-
-    LoadChallenges(dispatch)
-  },[dispatch]);
-
+    loadChallenges(dispatch);
+  }, [dispatch]);
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function
   /////////////////////////
   useEffect(() => {
-    const queryMoreChallengeAction = async () => {
-      const challengeRef = collection(firestoreDb, "challenges");
-      const queryChallenge = query(
-        challengeRef,
-        orderBy("publishedAt", "desc"),
-        startAfter(challengeLastDoc || 0),
-        limit(5)
-      );
-      const queryResult = await getDocs(queryChallenge);
 
-      dispatch(loadMoreChallengeList(queryResult.docs));
-
-      dispatch(updateLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-    };
     if (entry?.isIntersecting) {
-      queryMoreChallengeAction();
+      loadMoreChallengeAction(dispatch ,challengeLastDoc);
     }
 
     return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entry?.isIntersecting]);
+  }, [challengeLastDoc, dispatch, entry?.isIntersecting]);
 
-  /////////////////////////////////
-  ///// Load New challenges - Function
-  /////////////////////////
-  // const queryNewChallengeAction = async () => {
-  //   const challengeRef = collection(firestoreDb, "challenges");
-  //   const queryChallenge = query(
-  //     challengeRef,
-  //     orderBy("publishedAt", "desc"),
-  //     endBefore(challengeFirstDoc || 0),
-  //     limit(1)
-  //   );
-  //   const queryResult = await getDocs(queryChallenge);
 
-  //   dispatch(loadNewChallengeList(queryResult.docs));
-
-  //   dispatch(updateFirstDoc(queryResult.docs[0]));
-
-  // };
 
   return (
     <RootLayout title="Challenges">
@@ -167,7 +114,7 @@ const ChallengesPage = () => {
             })
           ) : (
             <div className="d-flex justify-content-center">
-            <h1>Start</h1>
+              <h1>Start</h1>
               <CircularProgress />
             </div>
           )}
