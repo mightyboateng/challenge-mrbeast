@@ -18,7 +18,6 @@ import {
 export const getUserDetails = async (
   profileId,
   userProfileDetail,
-  otherProfileDetail,
   dispatch
 ) => {
   if (userProfileDetail?.username === profileId) {
@@ -50,6 +49,8 @@ export const loadUserChallenge = async (profileId, dispatch) => {
   dispatch(loadFirstProfileChallengeList(queryResult.docs));
 
   dispatch(updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+
+  console.log("First loader")
 };
 
 export const loadMoreUserChallenge = async (
@@ -70,4 +71,6 @@ export const loadMoreUserChallenge = async (
   dispatch(loadMoreProfileChallengeList(queryResult.docs));
 
   dispatch(updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1]));
+
+  console.log("More loader");
 };

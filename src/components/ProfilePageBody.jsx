@@ -5,10 +5,10 @@ import PostCard from "./PostCard";
 import { useIntersection } from "@mantine/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  loadMoreUserChallenge,
+  loadMoreUserChallenge, loadUserChallenge,
 } from "../reduxConfig/actions/profile-actions";
 
-const ProfilePageBody = ({ profileId, userDetail, profileChallengeList }) => {
+const ProfilePageBody = ({ profileId, userDetail }) => {
   const lastPost = useRef(null);
   const { ref, entry } = useIntersection({
     root: lastPost.current,
@@ -19,12 +19,22 @@ const ProfilePageBody = ({ profileId, userDetail, profileChallengeList }) => {
   const profileChallengeLastDoc = useSelector(
     (state) => state.challenges.profileChallengeLastDoc
   );
+    const profileChallengeList = useSelector(
+      (state) => state.challenges.profileChallengeList
+    );
+
+
+    useEffect(() => {
+      loadUserChallenge(profileId, dispatch);
+    }, [dispatch, profileId]);
 
   useEffect(() => {
     if (entry?.isIntersecting) {
       loadMoreUserChallenge(profileId, dispatch, profileChallengeLastDoc);
     }
-  }, [dispatch, entry?.isIntersecting, profileChallengeLastDoc, profileId]);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.isIntersecting]);
 
   return (
     <div className=" profile-section">

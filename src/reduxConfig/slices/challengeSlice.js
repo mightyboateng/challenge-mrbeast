@@ -55,6 +55,9 @@ export const challengeSlice = createSlice({
     updateProfileLastDoc: (state, action) => {
       state.profileChallengeLastDoc = action.payload;
     },
+    updateProfileMoreLastDoc: (state, action) => {
+      state.profileChallengeLastDoc = action.payload;
+    },
   },
 });
 
@@ -67,6 +70,7 @@ export const {
   updateLoadingLastDoc,
   loadFirstProfileChallengeList,
   updateProfileLastDoc,
+  updateProfileMoreLastDoc,
   loadMoreProfileChallengeList,
 } = challengeSlice.actions;
 

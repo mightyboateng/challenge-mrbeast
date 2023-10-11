@@ -3,7 +3,10 @@ import RootLayout from "../../components/RootLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import { getUserDetails, loadUserChallenge } from "../../reduxConfig/actions/profile-actions";
+import {
+  getUserDetails,
+  loadUserChallenge,
+} from "../../reduxConfig/actions/profile-actions";
 import ProfilePageBody from "../../components/ProfilePageBody";
 
 const ProfilePage = () => {
@@ -16,32 +19,20 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     const getUserInfo = async () => {
-      getUserDetails(profileId, userDetail, otherProfileDetail, dispatch);
+      getUserDetails(profileId, userDetail, dispatch);
     };
-
-    return () => {
-      getUserInfo();
-      loadUserChallenge(profileId, dispatch)
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, profileId]);
-
+    getUserInfo();
+  }, [dispatch, profileId, userDetail]);
 
   return (
     <RootLayout title={profileId}>
       {userDetail?.username === profileId ? (
-        <ProfilePageBody
-          profileId={profileId}
-          userDetail={userDetail}
-          profileChallengeList={profileChallengeList}
-        />
+        <ProfilePageBody profileId={profileId} userDetail={userDetail} />
       ) : (
         <ProfilePageBody
           profileId={profileId}
           userDetail={otherProfileDetail}
-          profileChallengeList={profileChallengeList}
         />
       )}
     </RootLayout>

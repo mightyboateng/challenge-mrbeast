@@ -43,7 +43,8 @@ const ChallengesPage = () => {
     }
 
     return () => {};
-  }, [challengeLastDoc, dispatch, entry?.isIntersecting]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ entry?.isIntersecting]);
 
 
 
