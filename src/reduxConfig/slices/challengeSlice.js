@@ -15,7 +15,6 @@ export const challengeSlice = createSlice({
   reducers: {
     loadFirstChallengeList: (state, action) => {
       if (state.challengeList.length === 0) {
-        console.log("Run");
         state.challengeList = [...state.challengeList, ...action.payload];
       }
     },
@@ -27,7 +26,6 @@ export const challengeSlice = createSlice({
     },
     updateLastDoc: (state, action) => {
       if (state.challengeLastDoc === null) {
-        console.log("updated");
         state.challengeLastDoc = action.payload;
       }
     },

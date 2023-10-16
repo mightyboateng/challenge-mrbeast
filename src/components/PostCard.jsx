@@ -1,6 +1,5 @@
-import {
-} from "@mui/icons-material";
-import React from "react";
+import {} from "@mui/icons-material";
+import React, { useState } from "react";
 import VoteFunctionContainer from "./VoteFunctionContainer";
 import { Link } from "react-router-dom";
 
@@ -14,6 +13,7 @@ const PostCard = ({
   publishedAt,
   cardRef,
 }) => {
+  const [totalVotes, setTotalVotes] = useState(0);
   // Convert Firestore timestamp to JavaScript Date object
   const postDate = new Date(
     publishedAt.seconds * 1000 + publishedAt.nanoseconds / 1000000
@@ -61,6 +61,8 @@ const PostCard = ({
         flexDirection="flex-column"
         displayClass="hide-lg-vote"
         challengeId={challengeId}
+        totalVotes={totalVotes}
+        setTotalVotes={setTotalVotes}
       />
       <div className="">
         <div className="post-nav">
@@ -89,13 +91,15 @@ const PostCard = ({
             flexDirection="flex-row"
             displayClass="hide-sm-vote"
             challengeId={challengeId}
+            totalVotes={totalVotes}
+            setTotalVotes={setTotalVotes}
           />
 
-          {/* <div className="post-footer-item">
-            <Share />
-            <span>Share</span>
-            {totalVotes.totalVotes}
-          </div> */}
+          <div className="post-footer-item">
+            {/* <Share /> */}
+            <span>Total votes</span>
+            <p>{totalVotes}</p>
+          </div>
         </div>
       </div>
     </div>

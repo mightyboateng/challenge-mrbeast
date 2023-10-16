@@ -759,6 +759,10 @@ main .content-section h1 {
   color: var(--grey);
   font-size: 0.2rem;
 }
+.challenge-view-section .view-post-card .post-footer .post-footer-item p {
+  font-size: 1rem;
+  color: var(--text-white);
+}
 
 @media (min-width: 501px) {
   .challenge-view-section {
@@ -1072,6 +1076,10 @@ main .content-section h1 {
 }
 .post-card .post-footer .post-footer-item .MuiSvgIcon-root {
   font-size: 1.2rem;
+}
+.post-card .post-footer .post-footer-item p {
+  font-size: 1rem;
+  color: var(--text-white);
 }
 
 .mrbeast-post-card {

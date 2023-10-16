@@ -12,6 +12,7 @@ import { getChallengeDetail } from "../../reduxConfig/actions/challenge-actions"
 const SingleChallengeView = () => {
   const challengeList = useSelector((state) => state.challenges.challengeList);
   const [challengeDetail, setChallengeDetail] = useState(null);
+  const [totalVotes, setTotalVotes] = useState(0);
 
   const { challengeId } = useParams();
   const navigate = useNavigate();
@@ -46,6 +47,8 @@ const SingleChallengeView = () => {
                   flexDirection="flex-column"
                   displayClass="hide-lg-vote"
                   challengeId={challengeId}
+                  totalVotes={totalVotes}
+                  setTotalVotes={setTotalVotes}
                 />
                 <div className="">
                   <div className="post-nav">
@@ -86,6 +89,8 @@ const SingleChallengeView = () => {
                       flexDirection="flex-row"
                       displayClass="hide-sm-vote"
                       challengeId={challengeId}
+                      totalVotes={totalVotes}
+                      setTotalVotes={setTotalVotes}
                     />
                     {/* <div className="post-footer-item">
                     <Comment />
@@ -95,6 +100,10 @@ const SingleChallengeView = () => {
                       <Share />
                       <span>Share</span>
                     </div> */}
+                    <div className="post-footer-item">
+                      <span>Total votes</span>
+                      <p>{totalVotes}</p>
+                    </div>
                   </div>
                 </div>
               </div>

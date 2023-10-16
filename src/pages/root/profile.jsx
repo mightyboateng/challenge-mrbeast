@@ -13,9 +13,6 @@ const ProfilePage = () => {
   const { profileId } = useParams();
   const userDetail = useSelector((state) => state.user.userDetail);
   const otherProfileDetail = useSelector((state) => state.user.otherProfile);
-  const profileChallengeList = useSelector(
-    (state) => state.challenges.profileChallengeList
-  );
   const dispatch = useDispatch();
 
   useEffect(() => {

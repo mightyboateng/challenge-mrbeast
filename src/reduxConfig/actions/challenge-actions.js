@@ -26,7 +26,7 @@ export const loadChallenges = async (dispatch) => {
   const queryChallenge = query(
     challengeRef,
     orderBy("publishedAt", "desc"),
-    limit(1)
+    limit(5)
   );
 
   const queryResult = await getDocs(queryChallenge);
@@ -49,7 +49,7 @@ export const loadMoreChallengeAction = async (dispatch, challengeLastDoc) => {
     challengeRef,
     orderBy("publishedAt", "desc"),
     startAfter(challengeLastDoc || 0),
-    limit(1)
+    limit(3)
   );
 
   const queryResult = await getDocs(queryChallenge);

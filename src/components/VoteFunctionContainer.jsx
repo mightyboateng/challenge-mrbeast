@@ -16,6 +16,7 @@ const VoteFunctionContainer = ({
   flexDirection,
   displayClass,
   challengeId,
+  setTotalVotes,
 }) => {
   const userDetail = useSelector((state) => state.user.userDetail);
   const dispatch = useDispatch();
@@ -23,31 +24,11 @@ const VoteFunctionContainer = ({
   const [allDownVotes, setAllDownVotes] = useState([]);
   const [userVoteType, setUserVoteType] = useState("unvote");
   const [isLoadingVotes, setIsLoadingVotes] = useState(true);
+  // const [] = useState(0);
 
-  // ----- Vote up action -----
-  const voteUpAction = async () => {
+  const voteUpAction = () => {
     if (userDetail) {
-      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
-        voteCreator: userDetail?.uid,
-        voteUsername: userDetail?.username,
-      });
-    } else {
-      dispatch(showNotificationBanner("show-create-section"));
-    }
-  };
-  const unVoteUpAction = async () => {
-    if (userDetail) {
-      remove(
-        rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`)
-      );
-    } else {
-      dispatch(showNotificationBanner("show-create-section"));
-    }
-  };
-  const updateToVoteUpAction = async () => {
-    if (userDetail) {
-      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
-      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
+      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}`), {
         voteCreator: userDetail?.uid,
         voteUsername: userDetail?.username,
       });
@@ -56,8 +37,27 @@ const VoteFunctionContainer = ({
     }
   };
 
-  // ----- Vote Down Action -----
-  const voteDownAction = async () => {
+  const unVoteUpAction = () => {
+    if (userDetail) {
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}`));
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
+  };
+
+  const updateToVoteUpAction = () => {
+    if (userDetail) {
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}`));
+      set(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`), {
+        voteCreator: userDetail?.uid,
+        voteUsername: userDetail?.username,
+      });
+    } else {
+      dispatch(showNotificationBanner("show-create-section"));
+    }
+  };
+
+  const voteDownAction = () => {
     if (userDetail) {
       set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
         voteCreator: userDetail?.uid,
@@ -67,18 +67,18 @@ const VoteFunctionContainer = ({
       dispatch(showNotificationBanner("show-create-section"));
     }
   };
-  const unVoteDownAction = async () => {
+
+  const unVoteDownAction = () => {
     if (userDetail) {
-      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`));
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}`));
     } else {
       dispatch(showNotificationBanner("show-create-section"));
     }
   };
-  const updateToVoteDownAction = async () => {
+
+  const updateToVoteDownAction = () => {
     if (userDetail) {
-      remove(
-        rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}/`)
-      );
+      remove(rTRef(realtimeDb, `/votes/${challengeId}/yes/${userDetail?.uid}`));
       set(rTRef(realtimeDb, `/votes/${challengeId}/no/${userDetail?.uid}/`), {
         voteCreator: userDetail?.uid,
         voteUsername: userDetail?.username,
@@ -89,41 +89,41 @@ const VoteFunctionContainer = ({
   };
 
   useEffect(() => {
-    const voteUpQuery = query(rTRef(realtimeDb, `/votes/${challengeId}/yes`));
+    const voteQuery = query(rTRef(realtimeDb, `/votes/${challengeId}/`));
 
-    const voteDownQuery = query(rTRef(realtimeDb, `/votes/${challengeId}/no`));
+    onValue(voteQuery, (snapshot) => {
+      const newAllUpVotes = [];
+      const newAllDownVotes = [];
+      let newUserVoteType = "unvote";
 
-    onValue(voteUpQuery, (snapshot) => {
-      setAllUpVotes([]);
-      setUserVoteType("unvote");
       if (snapshot.val() !== null) {
-        Object.values(snapshot.val()).map((voteUp) => {
-          setAllUpVotes((oldValue) => [...oldValue, voteUp]);
-          if (voteUp.voteCreator === userDetail?.uid) {
-            setUserVoteType("yes");
-          }
-        });
-      } else {
-        setUserVoteType("unvote");
-      }
-    });
-    onValue(voteDownQuery, (snapshot) => {
-      setAllDownVotes([]);
-      setUserVoteType("unvote");
-      if (snapshot.val() !== null) {
-        Object.values(snapshot.val()).map((voteDown) => {
-          setAllDownVotes((oldValue) => [...oldValue, voteDown]);
-          if (voteDown.voteCreator === userDetail?.uid) {
-            setUserVoteType("no");
-          }
-        });
+        if (snapshot.val()["yes"] !== undefined) {
+          Object.values(snapshot.val()["yes"]).forEach((voteUp) => {
+            newAllUpVotes.push(voteUp);
+            if (voteUp.voteCreator === userDetail?.uid) {
+              newUserVoteType = "yes";
+            }
+          });
+        }
+        if (snapshot.val()["no"] !== undefined) {
+          Object.values(snapshot.val()["no"]).forEach((voteDown) => {
+            newAllDownVotes.push(voteDown);
+            if (voteDown.voteCreator === userDetail?.uid) {
+              newUserVoteType = "no";
+            }
+          });
+        }
       }
 
+      setAllUpVotes(newAllUpVotes);
+      setAllDownVotes(newAllDownVotes);
+      setUserVoteType(newUserVoteType);
+      setTotalVotes(newAllDownVotes.length + newAllUpVotes.length);
       setIsLoadingVotes(false);
     });
 
     return () => {};
-  }, []);
+  }, [challengeId, setTotalVotes, userDetail?.uid]);
 
   return (
     <div

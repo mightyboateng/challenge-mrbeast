@@ -44,6 +44,7 @@ const CreateChallengePage = () => {
             <div className="card-body">
               <form onSubmit={handleChallengeSubmit}>
                 <select name="channel">
+                  <option value="mb/charity">mb/mrbeast</option>
                   <option value="mb/charity">mb/charity</option>
                   <option value="mb/gaming">mb/gaming</option>
                   <option value="mb/reacts">mb/reacts</option>

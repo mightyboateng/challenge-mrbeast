@@ -21,14 +21,12 @@ export const getUserDetails = async (
   dispatch
 ) => {
   if (userProfileDetail?.username === profileId) {
-    console.log("Same same");
   } else {
     const userRef = collection(firestoreDb, "users");
     const queryUser = query(userRef, where("username", "==", profileId));
 
     const result = await getDocs(queryUser);
     if (result.docs.length !== 0) {
-      console.log("Firebase ");
       dispatch(updateOtherProfileDetail(result.docs[0]?.data()));
     }
   }
@@ -41,7 +39,7 @@ export const loadUserChallenge = async (profileId, dispatch) => {
     challengeRef,
     where("creatorUsername", "==", profileId),
     orderBy("publishedAt", "desc"),
-    limit(1)
+    limit(3)
   );
 
   const queryResult = await getDocs(queryChallenge);
@@ -49,8 +47,6 @@ export const loadUserChallenge = async (profileId, dispatch) => {
   dispatch(loadFirstProfileChallengeList(queryResult.docs));
 
   dispatch(updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-
-  console.log("First loader")
 };
 
 export const loadMoreUserChallenge = async (
@@ -64,13 +60,11 @@ export const loadMoreUserChallenge = async (
     where("creatorUsername", "==", profileId),
     orderBy("publishedAt", "desc"),
     startAfter(profileChallengeLastDoc || 0),
-    limit(1)
+    limit(2)
   );
   const queryResult = await getDocs(queryChallenge);
 
   dispatch(loadMoreProfileChallengeList(queryResult.docs));
 
   dispatch(updateProfileLastDoc(queryResult.docs[queryResult.docs.length - 1]));
-
-  console.log("More loader");
 };

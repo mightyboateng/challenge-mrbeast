@@ -8,7 +8,10 @@ import { CircularProgress } from "@mui/material";
 import { useIntersection } from "@mantine/hooks";
 import { PeopleAltOutlined, Person, Public } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { loadChallenges, loadMoreChallengeAction } from "../../reduxConfig/actions/challenge-actions";
+import {
+  loadChallenges,
+  loadMoreChallengeAction,
+} from "../../reduxConfig/actions/challenge-actions";
 
 const ChallengesPage = () => {
   const lastPost = useRef(null);
@@ -29,24 +32,19 @@ const ChallengesPage = () => {
   /////////////////////////
   useEffect(() => {
     loadChallenges(dispatch);
-    
-
   }, [dispatch]);
 
   /////////////////////////////////
   ///// Load more challenges onScrolling - Function
   /////////////////////////
   useEffect(() => {
-
     if (entry?.isIntersecting) {
-      loadMoreChallengeAction(dispatch ,challengeLastDoc);
+      loadMoreChallengeAction(dispatch, challengeLastDoc);
     }
 
     return () => {};
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ entry?.isIntersecting]);
-
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry?.isIntersecting]);
 
   return (
     <RootLayout title="Challenges">
@@ -117,7 +115,7 @@ const ChallengesPage = () => {
             })
           ) : (
             <div className="d-flex justify-content-center">
-              <h1>Start</h1>
+              
               <CircularProgress />
             </div>
           )}
@@ -125,7 +123,6 @@ const ChallengesPage = () => {
 
         {challengeLastDoc ? (
           <div className="d-flex justify-content-center">
-            <h1>helo</h1>
             <CircularProgress />
           </div>
         ) : null}
